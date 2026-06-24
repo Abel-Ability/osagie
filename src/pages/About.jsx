@@ -83,7 +83,7 @@ export default function About() {
             </div>
             <div className="mt-6 p-4 rounded-lg bg-gold/5 border border-gold/20">
               <p className="text-sm text-muted-foreground italic">
-                Additional entries for Educational Institutions / Duration / Certificate will be updated as available.
+
               </p>
             </div>
           </div>

@@ -60,7 +60,7 @@ export default function Gallery() {
   return (
     <div className="py-20 px-4">
       <div className="max-w-7xl mx-auto">
-        <SectionHeading title="Map Gallery" subtitle="A curated collection of maps produced using ArcGIS, QGIS, and other spatial analysis platforms" />
+        <SectionHeading title="Map Gallery" subtitle="A curated collection of maps produced using ArcGIS, QGIS, Generic Mapping Tools (GMT) and other spatial analysis platforms" />
 
         <div className="bg-card border border-border rounded-xl p-4 sm:p-6 mb-8">
           <p className="text-sm text-muted-foreground mb-4">Welcome to my GIS and Cartography Gallery — a curated collection of maps produced using ArcGIS, QGIS, Generic Mapping Tools (GMT), and other spatial analysis platforms. These maps represent research outputs, teaching resources, and professional GIS consultancy work spanning multiple countries and disciplines.

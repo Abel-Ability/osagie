@@ -54,9 +54,14 @@ export default function About() {
             <p className="text-muted-foreground leading-relaxed">
 
             </p>
-            <p className="text-muted-foreground leading-relaxed">I resonate strongly with the words of Dr. John G. Hibben that "Education is the ability to meet life's situations." Since education is not solely about imparting knowledge but is a transformative process, I believe in fostering an inclusive and stimulating learning environment that inspires intellectual curiosity and critical thinking. I am committed to cultivating a deep understanding of the natural world and inspiring a passion for scientific inquiry.
-
-            </p>
+            <p className="text-muted-foreground leading-relaxed">Born
+in Benin City, Nigeria, where he spent most part of his childhood and teenage
+life. He also lived briefly in other parts of Nigeria. He benefited from a
+supporting family and from an environment of diverse culture and ideologies which
+provided opportunities for personal growth. His aim is to develop this approach to life
+and share it with others by his own positive example. He hopes to inspire a
+creative and positive way of dealing with the various challenges that are part
+of everyone’s livesI resonate strongly with the words of Dr. John G. Hibben that "Education is the ability to meet life's situations." Since education is not solely about imparting knowledge but is a transformative process, I believe in fostering an inclusive and stimulating learning environment that inspires intellectual curiosity and critical thinking. I am committed to cultivating a deep understanding of the natural world and inspiring a passion for scientific inquiry.</p>
           </div>
         </RevealDiv>
 
@@ -70,16 +75,14 @@ export default function About() {
               <h3 className="font-heading text-xl font-semibold">Academic Qualifications</h3>
             </div>
             <div className="space-y-4">
-              {qualifications.map((q, i) =>
-              <div key={i} className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 p-4 rounded-lg bg-muted/50 border border-border/50">
+              {qualifications.map((q, i) => <div key={i} className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 p-4 rounded-lg bg-muted/50 border border-border/50">
                   <span className="font-heading font-bold text-gold text-lg w-16 shrink-0">{q.degree}</span>
                   <div className="flex-1">
                     <p className="font-medium">{q.field}</p>
                     <p className="text-sm text-muted-foreground">{q.institution}</p>
                   </div>
                   <span className="text-sm font-mono text-muted-foreground">{q.year}</span>
-                </div>
-              )}
+                </div>)}
             </div>
             <div className="mt-6 p-4 rounded-lg bg-gold/5 border border-gold/20 hidden">
               <p className="text-sm text-muted-foreground italic">
@@ -118,12 +121,10 @@ export default function About() {
               <h3 className="font-heading text-xl font-semibold">Professional Associations</h3>
             </div>
             <ul className="space-y-3">
-              {associations.map((a, i) =>
-              <li key={i} className="flex items-center gap-3">
+              {associations.map((a, i) => <li key={i} className="flex items-center gap-3">
                   <span className="w-2 h-2 rounded-full bg-gold shrink-0" />
                   <span>{a}</span>
-                </li>
-              )}
+                </li>)}
             </ul>
           </div>
         </RevealDiv>
@@ -133,10 +134,9 @@ export default function About() {
           <div className="bg-card border border-border rounded-2xl p-6 sm:p-10">
             <h3 className="font-heading text-xl font-semibold mb-6">Research Interests</h3>
             <div className="flex flex-wrap gap-2">
-              {researchInterests.map((tag) =>
-              <span
-                key={tag}
-                className="px-4 py-2 rounded-full text-sm font-medium bg-gold/10 text-gold border border-gold/20 hover:bg-gold/20 transition-colors">
+              {researchInterests.map((tag) => <span
+                  key={tag}
+                  className="px-4 py-2 rounded-full text-sm font-medium bg-gold/10 text-gold border border-gold/20 hover:bg-gold/20 transition-colors">
                 
                   {tag}
                 </span>

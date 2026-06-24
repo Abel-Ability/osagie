@@ -81,7 +81,7 @@ export default function About() {
                 </div>
               )}
             </div>
-            <div className="mt-6 p-4 rounded-lg bg-gold/5 border border-gold/20">
+            <div className="mt-6 p-4 rounded-lg bg-gold/5 border border-gold/20 hidden">
               <p className="text-sm text-muted-foreground italic">
 
               </p>

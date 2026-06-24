@@ -50,14 +50,6 @@ export default function Footer() {
             <p className="text-sm text-muted-foreground leading-relaxed">
               Lecturer, Geophysicist, GIS Specialist, Researcher, Consultant, Trainer & Software Developer.
             </p>
-            <div className="flex items-center gap-3">
-              <img
-                src="https://drive.google.com/thumbnail?id=1rovoohmsc10VxMnig2NbrDv5_aaH9ukJ&sz=w120"
-                alt="CBS Logo"
-                className="h-10 w-auto opacity-80"
-                referrerPolicy="no-referrer"
-              />
-            </div>
           </div>
 
           {/* Quick Links */}
@@ -117,12 +109,17 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-muted-foreground">
-            © 2026 Capacity Building and Support (CBS). All rights reserved.
-          </p>
-          <p className="text-xs text-muted-foreground">
-            University of Abuja, FCT, Nigeria
-          </p>
+          <div className="flex items-center gap-3">
+            <img
+              src="https://drive.google.com/thumbnail?id=1rovoohmsc10VxMnig2NbrDv5_aaH9ukJ&sz=w120"
+              alt="CBS Logo"
+              className="h-8 w-auto opacity-80"
+              referrerPolicy="no-referrer"
+            />
+            <p className="text-xs text-muted-foreground">
+              © 2026 Capacity Building and Support (CBS). All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

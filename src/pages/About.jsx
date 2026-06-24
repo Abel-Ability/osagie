@@ -52,7 +52,7 @@ export default function About() {
               <h3 className="font-heading text-xl font-semibold">Biography</h3>
             </div>
             <p className="text-muted-foreground leading-relaxed">
-              My educational background in geophysics combined with my programming abilities and experiences in seismic data analysis has been useful in developing an algorithm for ray tracing, hypocentral parameters estimation, determination of average velocity structure of a region and seismic tomographic inversion at local and regional distances. Presently, all codes are in Fortran and effort is on-going to produce Python versions.
+
             </p>
             <p className="text-muted-foreground leading-relaxed">I resonate strongly with the words of Dr. John G. Hibben that "Education is the ability to meet life's situations." Since education is not solely about imparting knowledge but is a transformative process, I believe in fostering an inclusive and stimulating learning environment that inspires intellectual curiosity and critical thinking. I am committed to cultivating a deep understanding of the natural world and inspiring a passion for scientific inquiry.
 

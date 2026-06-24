@@ -54,14 +54,14 @@ export default function About() {
             <p className="text-muted-foreground leading-relaxed">
 
             </p>
-            <p className="text-muted-foreground leading-relaxed">Born
-in Benin City, Nigeria, where he spent most part of his childhood and teenage
-life. He also lived briefly in other parts of Nigeria. He benefited from a
-supporting family and from an environment of diverse culture and ideologies which
-provided opportunities for personal growth. His aim is to develop this approach to life
-and share it with others by his own positive example. He hopes to inspire a
-creative and positive way of dealing with the various challenges that are part
-of everyone’s livesI resonate strongly with the words of Dr. John G. Hibben that "Education is the ability to meet life's situations." Since education is not solely about imparting knowledge but is a transformative process, I believe in fostering an inclusive and stimulating learning environment that inspires intellectual curiosity and critical thinking. I am committed to cultivating a deep understanding of the natural world and inspiring a passion for scientific inquiry.</p>
+            <p className="text-muted-foreground leading-relaxed">Born in Benin City, Nigeria, where I spent most part of his childhood and teenage life. He also lived briefly in other parts of Nigeria. He benefited from a supporting family and from an environment of diverse culture and ideologies which provided opportunities for personal growth. His aim is to develop this approach to life and share it with others by his own positive example. He hopes to inspire a creative and positive way of dealing with the various challenges that are part of everyone’s livesI resonate strongly with the words of Dr. John G. Hibben that "Education is the ability to meet life's situations." Since education is not solely about imparting knowledge but is a transformative process, I believe in fostering an inclusive and stimulating learning environment that inspires intellectual curiosity and critical thinking. I am committed to cultivating a deep understanding of the natural world and inspiring a passion for scientific inquiry.
+
+
+
+
+
+
+            </p>
           </div>
         </RevealDiv>
 
@@ -135,8 +135,8 @@ of everyone’s livesI resonate strongly with the words of Dr. John G. Hibben th
             <h3 className="font-heading text-xl font-semibold mb-6">Research Interests</h3>
             <div className="flex flex-wrap gap-2">
               {researchInterests.map((tag) => <span
-                  key={tag}
-                  className="px-4 py-2 rounded-full text-sm font-medium bg-gold/10 text-gold border border-gold/20 hover:bg-gold/20 transition-colors">
+                key={tag}
+                className="px-4 py-2 rounded-full text-sm font-medium bg-gold/10 text-gold border border-gold/20 hover:bg-gold/20 transition-colors">
                 
                   {tag}
                 </span>

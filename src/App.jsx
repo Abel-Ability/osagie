@@ -6,12 +6,22 @@ import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
-// Add page imports here
+
+import SiteLayout from '@/components/layout/SiteLayout';
+import Home from '@/pages/Home';
+import About from '@/pages/About';
+import Publications from '@/pages/Publications';
+import Gallery from '@/pages/Gallery';
+import Software from '@/pages/Software';
+import Services from '@/pages/Services';
+import Training from '@/pages/Training';
+import Blog from '@/pages/Blog';
+import Payment from '@/pages/Payment';
+import Contact from '@/pages/Contact';
 
 const AuthenticatedApp = () => {
-  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
+  const { isLoadingAuth, isLoadingPublicSettings, authError } = useAuth();
 
-  // Show loading spinner while checking app public settings or auth
   if (isLoadingPublicSettings || isLoadingAuth) {
     return (
       <div className="fixed inset-0 flex items-center justify-center">
@@ -20,29 +30,32 @@ const AuthenticatedApp = () => {
     );
   }
 
-  // Handle authentication errors
   if (authError) {
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
-    } else if (authError.type === 'auth_required') {
-      // Redirect to login automatically
-      navigateToLogin();
-      return null;
     }
   }
 
-  // Render the main app
   return (
     <Routes>
-      {/* Add your page Route elements here */}
+      <Route element={<SiteLayout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/publications" element={<Publications />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/software" element={<Software />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/training" element={<Training />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/contact" element={<Contact />} />
+      </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 };
 
-
 function App() {
-
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClientInstance}>

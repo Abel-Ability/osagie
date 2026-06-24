@@ -54,9 +54,9 @@ export default function About() {
             <p className="text-muted-foreground leading-relaxed">
 
             </p>
-            <p className="text-muted-foreground leading-relaxed">Born in Benin City, Nigeria, where I spent most part of his childhood and teenage life. I also lived briefly in other parts of Nigeria and benefited from a supporting family and from an environment of diverse culture and ideologies which provided opportunities for personal growth. My aim is to develop this approach to life and share it with others by my own positive example. I hope to inspire a creative and positive way of dealing with the various challenges that are part of everyone’s lives. The motto
-which sums up his approach to life is: “A
-good life is one inspired by love and guided by knowledge”.I resonate strongly with the words of Dr. John G. Hibben that "Education is the ability to meet life's situations." Since education is not solely about imparting knowledge but is a transformative process, I believe in fostering an inclusive and stimulating learning environment that inspires intellectual curiosity and critical thinking. I am committed to cultivating a deep understanding of the natural world and inspiring a passion for scientific inquiry.
+            <p className="text-muted-foreground leading-relaxed">Born in Benin City, Nigeria, where I spent most part of his childhood and teenage life. I also lived briefly in other parts of Nigeria and benefited from a supporting family and from an environment of diverse culture and ideologies which provided opportunities for personal growth. My aim is to develop this approach to life and share it with others by my own positive example. I hope to inspire a creative and positive way of dealing with the various challenges that are part of everyone’s lives. The motto which sums up my approach to life is: “A good life is one inspired by love and guided by knowledge”.I resonate strongly with the words of Dr. John G. Hibben that "Education is the ability to meet life's situations." Since education is not solely about imparting knowledge but is a transformative process, I believe in fostering an inclusive and stimulating learning environment that inspires intellectual curiosity and critical thinking. I am committed to cultivating a deep understanding of the natural world and inspiring a passion for scientific inquiry.
+
+
 
 
 

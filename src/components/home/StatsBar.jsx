@@ -20,7 +20,7 @@ export default function StatsBar() {
     <section className="bg-card border-y border-border">
       <div className="max-w-5xl mx-auto px-4 py-4">
         <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-border">
-          <StatItem icon={GraduationCap} value={20} suffix="+" label="Years Teaching" />
+          <StatItem icon={GraduationCap} value={18} suffix="+" label="Years Teaching" />
           <StatItem icon={BookOpen} value={40} suffix="+" label="Publications" />
           <StatItem icon={Code2} value={30} suffix="+" label="Software Tools" />
           <StatItem icon={Globe} value={8} suffix="+" label="Countries Served" />

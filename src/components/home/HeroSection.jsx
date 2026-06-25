@@ -85,9 +85,7 @@ export default function HeroSection() {
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <div className="absolute -bottom-2 right-[-2rem] px-4 py-2 bg-card border border-border rounded-lg shadow-lg text-xs font-medium">
-                18+ Years Teaching
-              </div>
+
             </div>
           </motion.div>
 

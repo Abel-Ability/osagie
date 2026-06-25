@@ -68,13 +68,35 @@ export default function HeroSection() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="flex flex-col items-center text-center gap-8">
+          {/* Photo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="relative">
+              <div className="absolute -inset-4 bg-gradient-to-br from-gold/20 to-transparent rounded-full blur-2xl" />
+              <div className="relative w-48 h-48 sm:w-64 sm:h-64 rounded-full overflow-hidden border-4 border-gold/30 shadow-2xl">
+                <img
+                  src="https://drive.google.com/thumbnail?id=1kug-_NjMsxNGt4kJJ-pXaTWaukdgDWor&sz=w400"
+                  alt="Dr. Abel U. Osagie"
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <div className="absolute -bottom-2 -right-2 px-4 py-2 bg-card border border-border rounded-lg shadow-lg text-xs font-medium">
+                20+ Years Teaching
+              </div>
+            </div>
+          </motion.div>
+
           {/* Text */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="space-y-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            className="space-y-6 max-w-3xl"
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold/10 border border-gold/20 text-sm text-gold">
               <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
@@ -86,10 +108,10 @@ export default function HeroSection() {
             <div className="text-xl sm:text-2xl font-medium h-10">
               <TypewriterText />
             </div>
-            <p className="text-muted-foreground leading-relaxed max-w-xl text-base">
+            <p className="text-muted-foreground leading-relaxed text-base">
               Welcome to my personal academic and professional website. I am passionate about advancing knowledge through teaching, research, innovation, and professional consultancy. My work spans Geophysics, Geographic Information Systems (GIS), Remote Sensing, Data Analytics, Educational Technology, Scientific Programming, and Digital Solutions Development. This platform provides access to my publications, research projects, maps, software solutions, training opportunities, and professional services. I welcome collaborations, consultancy engagements, research partnerships, and capacity-building opportunities.
             </p>
-            <div className="flex flex-wrap gap-3 pt-2">
+            <div className="flex flex-wrap justify-center gap-3 pt-2">
               <Link to="/publications" className="inline-flex items-center gap-2 px-5 py-2.5 bg-gold text-navy font-semibold rounded-lg hover:bg-gold/90 transition-all text-sm">
                 <BookOpen className="w-4 h-4" /> View Publications
               </Link>
@@ -102,29 +124,6 @@ export default function HeroSection() {
               <Link to="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-sm">
                 <Mail className="w-4 h-4" /> Contact Me
               </Link>
-            </div>
-          </motion.div>
-
-          {/* Photo */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex justify-center lg:justify-end"
-          >
-            <div className="relative">
-              <div className="absolute -inset-4 bg-gradient-to-br from-gold/20 to-transparent rounded-full blur-2xl" />
-              <div className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-4 border-gold/30 shadow-2xl">
-                <img
-                  src="https://drive.google.com/thumbnail?id=1kug-_NjMsxNGt4kJJ-pXaTWaukdgDWor&sz=w400"
-                  alt="Dr. Abel U. Osagie"
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-              <div className="absolute -bottom-2 -right-2 px-4 py-2 bg-card border border-border rounded-lg shadow-lg text-xs font-medium">
-                20+ Years Teaching
-              </div>
             </div>
           </motion.div>
         </div>

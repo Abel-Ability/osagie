@@ -1,22 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Mail, ExternalLink } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { useToast } from '@/components/ui/use-toast';
-
-const footerLinks = [
-  { label: "Home", path: "/" },
-  { label: "About", path: "/about" },
-  { label: "Publications", path: "/publications" },
-  { label: "Gallery", path: "/gallery" },
-  { label: "Software", path: "/software" },
-  { label: "Services", path: "/services" },
-  { label: "Training", path: "/training" },
-  { label: "Payment", path: "/payment" },
-  { label: "Blog", path: "/blog" },
-  { label: "Contact", path: "/contact" }
-];
+import React from 'react';
+import { ExternalLink } from 'lucide-react';
 
 const socialLinks = [
   { name: "LinkedIn", url: "https://www.linkedin.com/in/abel-o-0a743063/" },
@@ -27,46 +10,11 @@ const socialLinks = [
 ];
 
 export default function Footer() {
-  const [email, setEmail] = useState('');
-  const { toast } = useToast();
-
-  const handleSubscribe = (e) => {
-    e.preventDefault();
-    if (email) {
-      toast({ title: "Subscribed!", description: "Thank you for subscribing to the newsletter." });
-      setEmail('');
-    }
-  };
-
   return (
     <footer className="bg-card border-t border-border mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Brand */}
-          <div className="space-y-4">
-            <h3 className="font-heading text-xl font-bold">
-              Dr. Abel U. <span className="text-gold">Osagie</span>
-            </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Lecturer, Geophysicist, GIS Specialist, Researcher, Consultant, Trainer & Software Developer.
-            </p>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4 className="font-heading font-semibold mb-4 text-sm uppercase tracking-wider text-gold">Quick Links</h4>
-            <ul className="space-y-2">
-              {footerLinks.map(link => (
-                <li key={link.path}>
-                  <Link to={link.path} className="text-sm text-muted-foreground hover:text-gold transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Social & Academic */}
+        <div className="flex flex-col md:flex-row gap-8 justify-between">
+          {/* Connect */}
           <div>
             <h4 className="font-heading font-semibold mb-4 text-sm uppercase tracking-wider text-gold">Connect</h4>
             <ul className="space-y-2">
@@ -84,27 +32,6 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
-
-          {/* Newsletter */}
-          <div>
-            <h4 className="font-heading font-semibold mb-4 text-sm uppercase tracking-wider text-gold">Newsletter</h4>
-            <p className="text-sm text-muted-foreground mb-4">
-              Stay updated with latest publications, research news, and training opportunities.
-            </p>
-            <form onSubmit={handleSubscribe} className="flex gap-2">
-              <Input
-                type="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder="Your email"
-                required
-                className="text-sm"
-              />
-              <Button type="submit" size="sm" className="bg-gold text-navy hover:bg-gold/90 shrink-0">
-                <Mail className="w-4 h-4" />
-              </Button>
-            </form>
           </div>
         </div>
 

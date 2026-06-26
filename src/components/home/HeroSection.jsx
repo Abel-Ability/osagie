@@ -99,12 +99,12 @@ export default function HeroSection() {
             <h1 className="font-heading text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight">
               Dr. Abel U. OSAGIE
             </h1>
+            <div className="text-xl sm:text-2xl font-medium h-10">
+              <TypewriterText />
+            </div>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold/10 border border-gold/20 text-sm text-gold">
               <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
               University of Abuja, Nigeria
-            </div>
-            <div className="text-xl sm:text-2xl font-medium h-10">
-              <TypewriterText />
             </div>
             <p className="text-muted-foreground leading-relaxed text-base">
               Welcome to my personal academic and professional website. I am passionate about advancing knowledge through teaching, research, innovation, and professional consultancy. My work spans Geophysics, Geographic Information Systems (GIS), Remote Sensing, Data Analytics, Educational Technology, Scientific Programming, and Digital Solutions Development. This platform provides access to my publications, research projects, maps, software solutions, training opportunities, and professional services. I welcome collaborations, consultancy engagements, research partnerships, and capacity-building opportunities.

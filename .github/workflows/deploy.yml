@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install
       - run: pnpm build
         env:
           VITE_BASE_PATH: /osagie/

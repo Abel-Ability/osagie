@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import { Mail, Phone, Globe, Send, CheckCircle, ExternalLink, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,14 +11,31 @@ import AcademicProfileLinks from '@/components/shared/AcademicProfileLinks';
 
 const howOptions = ["Google Search", "Social Media", "Colleague/Friend", "Academic Publication", "Conference", "Other"];
 
+const EJS_SERVICE_ID = import.meta.env.VITE_EJS_SERVICE_ID;
+const EJS_TEMPLATE_ID = import.meta.env.VITE_EJS_TEMPLATE_ID;
+const EJS_PUBLIC_KEY = import.meta.env.VITE_EJS_PUBLIC_KEY;
+
 export default function Contact() {
+  const formRef = useRef(null);
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
     setSending(true);
-    setTimeout(() => { setSending(false); setSubmitted(true); }, 1200);
+
+    try {
+      await emailjs.sendForm(EJS_SERVICE_ID, EJS_TEMPLATE_ID, formRef.current, {
+        publicKey: EJS_PUBLIC_KEY,
+      });
+      setSubmitted(true);
+    } catch (err) {
+      setError('Failed to send message. Please try again or email me directly.');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -35,35 +53,35 @@ export default function Contact() {
                 <p className="text-center text-muted-foreground max-w-sm">
                   Thank you for reaching out. I will respond within 24–48 hours.
                 </p>
-                <Button onClick={() => setSubmitted(false)} variant="outline" className="mt-4">
+                <Button onClick={() => { setSubmitted(false); formRef.current?.reset(); }} variant="outline" className="mt-4">
                   Send Another Message
                 </Button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="contact-name">Full Name *</Label>
-                    <Input id="contact-name" required placeholder="Your name" />
+                    <Input id="contact-name" name="from_name" required placeholder="Your name" />
                   </div>
                   <div>
                     <Label htmlFor="contact-email">Email *</Label>
-                    <Input id="contact-email" type="email" required placeholder="you@example.com" />
+                    <Input id="contact-email" name="from_email" type="email" required placeholder="you@example.com" />
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="contact-phone">Phone</Label>
-                    <Input id="contact-phone" type="tel" placeholder="+234..." />
+                    <Input id="contact-phone" name="from_phone" type="tel" placeholder="+234..." />
                   </div>
                   <div>
                     <Label htmlFor="contact-subject">Subject *</Label>
-                    <Input id="contact-subject" required placeholder="Subject of your message" />
+                    <Input id="contact-subject" name="subject" required placeholder="Subject of your message" />
                   </div>
                 </div>
                 <div>
                   <Label htmlFor="contact-message">Message *</Label>
-                  <Textarea id="contact-message" required rows={5} placeholder="Write your message here..." />
+                  <Textarea id="contact-message" name="message" required rows={5} placeholder="Write your message here..." />
                 </div>
                 <div>
                   <Label>How did you find me?</Label>
@@ -74,6 +92,7 @@ export default function Contact() {
                     </SelectContent>
                   </Select>
                 </div>
+                {error && <p className="text-sm text-red-500">{error}</p>}
                 <Button type="submit" disabled={sending} className="w-full bg-gold text-navy hover:bg-gold/90 font-semibold">
                   {sending ? "Sending..." : <><Send className="w-4 h-4 mr-2" /> Send Message</>}
                 </Button>

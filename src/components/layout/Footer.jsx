@@ -6,7 +6,6 @@ const socialLinks = [
   { name: "ResearchGate", url: "https://www.researchgate.net/profile/Abel-Osagie" },
   { name: "Google Scholar", url: "https://scholar.google.com/citations?user=ia0zhwMAAAAJ&hl=en&authuser=1" },
   { name: "ORCID", url: "https://orcid.org/0000-0002-8441-5793" },
-  { name: "WhatsApp", url: "https://wa.me/2348122100528" }
 ];
 
 export default function Footer() {
@@ -40,7 +39,7 @@ export default function Footer() {
             <img
               src="https://drive.google.com/thumbnail?id=1rovoohmsc10VxMnig2NbrDv5_aaH9ukJ&sz=w120"
               alt="CBS Logo"
-              className="h-8 w-auto opacity-80"
+              style={{ height: '38.4px' }} className="w-auto opacity-80"
               referrerPolicy="no-referrer"
             />
             <p className="text-xs text-muted-foreground">

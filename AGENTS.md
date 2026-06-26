@@ -11,5 +11,5 @@ This is a frontend application for Dr. Abel U. Osagie's portfolio. Treat it as u
 
 ## Working Notes
 
-- Use `npm run dev` for local development.
+- Use `pnpm dev` for local development.
 - Run the relevant checks from `package.json` before finishing code changes.

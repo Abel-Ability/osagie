@@ -1,8 +1,22 @@
 import React, { useState } from 'react';
-import { Search, Calendar, User, ArrowRight } from 'lucide-react';
+import { Search, Calendar, User, ArrowRight, Video, ExternalLink } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import SectionHeading from '@/components/shared/SectionHeading';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+
+const tutorialVideos = [
+  { title: "Navigating Virtual Classroom (Canvas)", url: "https://drive.google.com/file/d/1rzyexHmVS89tR3tnr4bwO_vzqBSDjNlb/view?usp=sharing" },
+  { title: "Navigating Virtual Classroom (Moodle)", url: "https://drive.google.com/file/d/1_4cPCbV7EJQkrePtOIB7KizOIKsG1T9X/view?usp=sharing" },
+  { title: "Assignment Submission (Undergraduate) Tutorial", url: "https://drive.google.com/file/d/1mMW5766HZANpAojWT3jkafbnR6nWNqT-/view?usp=sharing" },
+  { title: "Departmental Registration & Viewer (Undergraduate) Tutorial", url: "https://drive.google.com/file/d/1df-ZkiXgrcnAFlT_mmMiTnZRX7XE25ym/view?usp=sharing" },
+  { title: "Final Year Project (FYP) Submission & View Tutorial", url: "https://drive.google.com/file/d/1WEpz8h5tAiO7NHb4rM1muHtClXtSdyzo/view?usp=sharing" },
+  { title: "Installing ONLYOFFICE", url: "https://drive.google.com/file/d/1nWx7XL5SbhIT-BfQDsDe-tAm1lDB9sem/view?usp=sharing" },
+  { title: "Installing EndNote 20", url: "https://drive.google.com/file/d/1obcq1sfwo7YBGZSLluxXobg_SVKiuXaU/view?usp=sharing" },
+  { title: "Using EndNote 20 – Part 1", url: "https://drive.google.com/file/d/1o6j_5MosfeeV8iRAONdbDCi4udyMZlLN/view?usp=sharing" },
+  { title: "Using EndNote 20 – Part 2", url: "https://drive.google.com/file/d/1PxWgotrHw9uc0b-VL4xpgM0cupiul1H3/view?usp=sharing" },
+  { title: "Using EndNote 20 – Part 3", url: "https://drive.google.com/file/d/1Ya2kNr6veMT3zgwcGvheygCzHgE2sKTG/view?usp=sharing" },
+  { title: "Using EndNote 20 – Part 4", url: "https://drive.google.com/file/d/1Iu3_0KYKmBsYuDz575e0qoTtY4xDegsg/view?usp=sharing" },
+];
 
 const categories = ["All", "GIS & Mapping", "Geophysics", "Programming Tutorials", "Educational Technology", "Research Methods", "Career Advice"];
 
@@ -141,6 +155,32 @@ export default function Blog() {
         {filtered.length === 0 && (
           <p className="text-center text-muted-foreground py-16">No articles match your search.</p>
         )}
+
+        {/* Tutorial Videos */}
+        <div className="mt-20">
+          <SectionHeading title="Tutorial Videos" subtitle="Step-by-step video guides for academic tools, platforms, and software" />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {tutorialVideos.map((video, idx) => (
+              <a
+                key={idx}
+                href={video.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-card border border-border rounded-xl p-5 flex items-start gap-4 hover:border-gold/40 hover:shadow-lg transition-all duration-300"
+              >
+                <div className="shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                  <Video className="w-5 h-5 text-primary" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium leading-snug group-hover:text-primary transition-colors">{video.title}</p>
+                  <span className="inline-flex items-center gap-1 text-xs text-muted-foreground mt-1.5">
+                    Watch on Drive <ExternalLink className="w-3 h-3" />
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

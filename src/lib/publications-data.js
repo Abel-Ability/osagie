@@ -448,14 +448,17 @@ export const softwareTools = [
 ];
 
 export const tutorialVideos = [
-  { title: "Navigating PHY103 Virtual Classroom", url: "https://shorturl.at/MLoGP" },
-  { title: "Assignment Submission (UG) Tutorial", url: "https://shorturl.at/04FxD" },
-  { title: "Canvas – Bulk Enrolment and Removal of Students", url: "https://shorturl.at/f6QmS" },
-  { title: "Installing EndNote 20", url: "https://shorturl.at/MfyjJ" },
-  { title: "Using EndNote 20 – Part 1", url: "https://shorturl.at/bltT5" },
-  { title: "Using EndNote 20 – Part 2", url: "https://shorturl.at/BxLcB" },
-  { title: "Using EndNote 20 – Part 3", url: "https://shorturl.at/UzBKt" },
-  { title: "Using EndNote 20 – Part 4", url: "https://shorturl.at/9Rt5k" }
+  { title: "Navigating Virtual Classroom (Canvas)", url: "https://drive.google.com/file/d/1rzyexHmVS89tR3tnr4bwO_vzqBSDjNlb/view?usp=sharing" },
+  { title: "Navigating Virtual Classroom (Moodle)", url: "https://drive.google.com/file/d/1_4cPCbV7EJQkrePtOIB7KizOIKsG1T9X/view?usp=sharing" },
+  { title: "Assignment Submission (Undergraduate) Tutorial", url: "https://drive.google.com/file/d/1mMW5766HZANpAojWT3jkafbnR6nWNqT-/view?usp=sharing" },
+  { title: "Departmental Registration & Viewer (Undergraduate) Tutorial", url: "https://drive.google.com/file/d/1df-ZkiXgrcnAFlT_mmMiTnZRX7XE25ym/view?usp=sharing" },
+  { title: "Final Year Project (FYP) Submission & View Tutorial", url: "https://drive.google.com/file/d/1WEpz8h5tAiO7NHb4rM1muHtClXtSdyzo/view?usp=sharing" },
+  { title: "Installing ONLYOFFICE", url: "https://drive.google.com/file/d/1nWx7XL5SbhIT-BfQDsDe-tAm1lDB9sem/view?usp=sharing" },
+  { title: "Installing EndNote 20", url: "https://drive.google.com/file/d/1obcq1sfwo7YBGZSLluxXobg_SVKiuXaU/view?usp=sharing" },
+  { title: "Using EndNote 20 – Part 1", url: "https://drive.google.com/file/d/1o6j_5MosfeeV8iRAONdbDCi4udyMZlLN/view?usp=sharing" },
+  { title: "Using EndNote 20 – Part 2", url: "https://drive.google.com/file/d/1PxWgotrHw9uc0b-VL4xpgM0cupiul1H3/view?usp=sharing" },
+  { title: "Using EndNote 20 – Part 3", url: "https://drive.google.com/file/d/1Ya2kNr6veMT3zgwcGvheygCzHgE2sKTG/view?usp=sharing" },
+  { title: "Using EndNote 20 – Part 4", url: "https://drive.google.com/file/d/1Iu3_0KYKmBsYuDz575e0qoTtY4xDegsg/view?usp=sharing" }
 ];
 
 export const services = [
@@ -579,7 +582,7 @@ export const trainingProgrammes = [
 export const academicProfiles = [
   { name: "ORCID", url: "https://orcid.org/0000-0002-8441-5793", icon: "orcid" },
   { name: "Google Scholar", url: "https://scholar.google.com/citations?user=ia0zhwMAAAAJ&hl=en&authuser=1", icon: "scholar" },
-  { name: "ResearchGate", url: "https://www.researchgate.net/profile/Abel-Osagie", icon: "researchgate" },
+  { name: "ResearchGate", url: "https://www.researchgate.net/profile/Abel-OSAGIE", icon: "researchgate" },
   { name: "Scopus", url: "https://www.scopus.com/authid/detail.uri?authorId=57221920908", icon: "scopus" },
   { name: "Academia.edu", url: "https://uniabuja.academia.edu/AbelOsagie", icon: "academia" },
   { name: "LinkedIn", url: "https://www.linkedin.com/in/abel-o-0a743063/", icon: "linkedin" }

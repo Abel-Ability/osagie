@@ -3,20 +3,7 @@ import { Search, Calendar, User, ArrowRight, Video, ExternalLink } from 'lucide-
 import { Input } from '@/components/ui/input';
 import SectionHeading from '@/components/shared/SectionHeading';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-
-const tutorialVideos = [
-  { title: "Navigating Virtual Classroom (Canvas)", url: "https://drive.google.com/file/d/1rzyexHmVS89tR3tnr4bwO_vzqBSDjNlb/view?usp=sharing" },
-  { title: "Navigating Virtual Classroom (Moodle)", url: "https://drive.google.com/file/d/1_4cPCbV7EJQkrePtOIB7KizOIKsG1T9X/view?usp=sharing" },
-  { title: "Assignment Submission (Undergraduate) Tutorial", url: "https://drive.google.com/file/d/1mMW5766HZANpAojWT3jkafbnR6nWNqT-/view?usp=sharing" },
-  { title: "Departmental Registration & Viewer (Undergraduate) Tutorial", url: "https://drive.google.com/file/d/1df-ZkiXgrcnAFlT_mmMiTnZRX7XE25ym/view?usp=sharing" },
-  { title: "Final Year Project (FYP) Submission & View Tutorial", url: "https://drive.google.com/file/d/1WEpz8h5tAiO7NHb4rM1muHtClXtSdyzo/view?usp=sharing" },
-  { title: "Installing ONLYOFFICE", url: "https://drive.google.com/file/d/1nWx7XL5SbhIT-BfQDsDe-tAm1lDB9sem/view?usp=sharing" },
-  { title: "Installing EndNote 20", url: "https://drive.google.com/file/d/1obcq1sfwo7YBGZSLluxXobg_SVKiuXaU/view?usp=sharing" },
-  { title: "Using EndNote 20 – Part 1", url: "https://drive.google.com/file/d/1o6j_5MosfeeV8iRAONdbDCi4udyMZlLN/view?usp=sharing" },
-  { title: "Using EndNote 20 – Part 2", url: "https://drive.google.com/file/d/1PxWgotrHw9uc0b-VL4xpgM0cupiul1H3/view?usp=sharing" },
-  { title: "Using EndNote 20 – Part 3", url: "https://drive.google.com/file/d/1Ya2kNr6veMT3zgwcGvheygCzHgE2sKTG/view?usp=sharing" },
-  { title: "Using EndNote 20 – Part 4", url: "https://drive.google.com/file/d/1Iu3_0KYKmBsYuDz575e0qoTtY4xDegsg/view?usp=sharing" },
-];
+import { tutorialVideos } from '@/lib/publications-data';
 
 const categories = ["All", "GIS & Mapping", "Geophysics", "Programming Tutorials", "Educational Technology", "Research Methods", "Career Advice"];
 
@@ -27,7 +14,7 @@ const samplePosts = [
     excerpt: "A beginner-friendly guide to setting up QGIS and performing your first spatial analysis on geospatial data, covering installation, data import, and basic geoprocessing.",
     category: "GIS & Mapping",
     date: "Coming Soon",
-    author: "Dr. Abel U. Osagie"
+    author: "Dr. Abel U. OSAGIE"
   },
   {
     id: 2,
@@ -35,7 +22,7 @@ const samplePosts = [
     excerpt: "An introduction to seismic tomography methods, ray tracing algorithms, and how subsurface velocity models are constructed from earthquake data.",
     category: "Geophysics",
     date: "Coming Soon",
-    author: "Dr. Abel U. Osagie"
+    author: "Dr. Abel U. OSAGIE"
   },
   {
     id: 3,
@@ -43,7 +30,7 @@ const samplePosts = [
     excerpt: "Learn how to automate academic workflows, build custom submission systems, and create web applications using Google Apps Script for educators.",
     category: "Programming Tutorials",
     date: "Coming Soon",
-    author: "Dr. Abel U. Osagie"
+    author: "Dr. Abel U. OSAGIE"
   },
   {
     id: 4,
@@ -51,7 +38,7 @@ const samplePosts = [
     excerpt: "Practical advice on structuring your research proposal, writing a compelling literature review, and presenting a clear methodology for academic grants.",
     category: "Research Methods",
     date: "Coming Soon",
-    author: "Dr. Abel U. Osagie"
+    author: "Dr. Abel U. OSAGIE"
   },
   {
     id: 5,
@@ -59,7 +46,7 @@ const samplePosts = [
     excerpt: "A curated overview of essential Python libraries for geoscience research including NumPy, SciPy, ObsPy, Matplotlib, and GeoPandas for data analysis.",
     category: "Programming Tutorials",
     date: "Coming Soon",
-    author: "Dr. Abel U. Osagie"
+    author: "Dr. Abel U. OSAGIE"
   },
   {
     id: 6,
@@ -67,7 +54,7 @@ const samplePosts = [
     excerpt: "Exploring diverse career opportunities for geophysicists in academia, oil and gas, mining, environmental consulting, and government agencies.",
     category: "Career Advice",
     date: "Coming Soon",
-    author: "Dr. Abel U. Osagie"
+    author: "Dr. Abel U. OSAGIE"
   }
 ];
 

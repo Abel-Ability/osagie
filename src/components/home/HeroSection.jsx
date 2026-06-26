@@ -101,7 +101,7 @@ export default function HeroSection() {
               University of Abuja, Nigeria
             </div>
             <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-              Dr. Abel U. Osagie
+              Dr. Abel U. OSAGIE
             </h1>
             <div className="text-xl sm:text-2xl font-medium h-10">
               <TypewriterText />

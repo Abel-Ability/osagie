@@ -42,7 +42,7 @@ export default function Header({ isDark, toggleTheme, onHireMe }) {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 shrink-0">
             <span className="font-heading text-lg sm:text-xl font-bold tracking-tight">
-              Dr. Abel U. <span className="text-gold">Osagie</span>
+              Dr. Abel U. <span className="text-gold">OSAGIE</span>
             </span>
           </Link>
 

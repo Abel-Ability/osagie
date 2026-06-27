@@ -150,7 +150,7 @@ export default function Training() {
               </div>
               <div>
                 <Label htmlFor="training-msg">Additional Information / Message</Label>
-                <Textarea id="training-msg" name="message" rows={3} placeholder="Any questions or additional information..." />
+                <Textarea id="training-msg" name="message" required rows={3} placeholder="Any questions or additional information..." />
               </div>
               <Button type="submit" disabled={sending} className="w-full bg-gold text-navy hover:bg-gold/90 font-semibold">
                 {sending ? "Sending..." : "Submit Registration"}

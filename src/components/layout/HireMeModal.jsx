@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Send, CheckCircle } from 'lucide-react';
 
 const EJS_SERVICE_ID = import.meta.env.VITE_EJS_SERVICE_ID;
-const EJS_TEMPLATE_ID = import.meta.env.VITE_EJS_TEMPLATE_ID;
+const EJS_TEMPLATE_ID = import.meta.env.VITE_EJS_HIRE_TEMPLATE_ID;
 const EJS_PUBLIC_KEY = import.meta.env.VITE_EJS_PUBLIC_KEY;
 
 const serviceOptions = [

@@ -103,10 +103,10 @@ export default function HireMeModal({ open, onOpenChange, prefillService = "" })
                 </SelectContent>
               </Select>
             </div>
-            <div>
-              <Label htmlFor="hire-desc">Project Description *</Label>
-              <Textarea id="hire-desc" name="description" required rows={4} placeholder="Describe your project requirements..." />
-            </div>
+              <div>
+                <Label htmlFor="hire-desc">Project Details / Message *</Label>
+                <Textarea id="hire-desc" name="message" required rows={4} placeholder="Describe your project requirements..." />
+              </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="hire-budget">Budget Range</Label>

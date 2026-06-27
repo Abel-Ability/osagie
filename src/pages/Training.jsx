@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import SectionHeading from '@/components/shared/SectionHeading';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
@@ -146,6 +147,10 @@ export default function Training() {
               <div>
                 <Label>Preferred Start Date</Label>
                 <Input name="start_date" type="date" />
+              </div>
+              <div>
+                <Label htmlFor="training-msg">Additional Information / Message</Label>
+                <Textarea id="training-msg" name="message" rows={3} placeholder="Any questions or additional information..." />
               </div>
               <Button type="submit" disabled={sending} className="w-full bg-gold text-navy hover:bg-gold/90 font-semibold">
                 {sending ? "Sending..." : "Submit Registration"}

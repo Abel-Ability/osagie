@@ -219,8 +219,8 @@ export default function Payment() {
                 </div>
               </div>
               <div>
-                <Label>Additional Notes</Label>
-                <Textarea name="notes" placeholder="Any additional information..." rows={3} />
+                <Label>Additional Notes / Message</Label>
+                <Textarea name="message" placeholder="Any additional information..." rows={3} />
               </div>
               {error && <p className="text-sm text-red-500">{error}</p>}
               <Button type="submit" disabled={sending} className="w-full bg-gold text-navy hover:bg-gold/90 font-semibold">

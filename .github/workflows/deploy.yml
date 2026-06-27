@@ -8,22 +8,17 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v5
         with:
           version: latest
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: pnpm
       - run: pnpm install
       - run: pnpm build
         env:
-          VITE_EJS_SERVICE_ID: service_avwk5yc
-          VITE_EJS_TEMPLATE_ID: template_ujmv7q7
-          VITE_EJS_HIRE_TEMPLATE_ID: template_8g6rckz
-          VITE_EJS_TRAINING_TEMPLATE_ID: template_ujmv7q7
-          VITE_EJS_PUBLIC_KEY: lxGImJMZYEIssOPOm
           VITE_WEB3FORMS_KEY: a5a368e0-c831-4fe8-9351-e3d27c746b2b
       - run: npx wrangler deploy
         env:

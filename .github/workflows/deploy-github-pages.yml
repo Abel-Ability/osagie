@@ -20,11 +20,11 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v5
         with:
           version: latest
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: pnpm
@@ -32,11 +32,6 @@ jobs:
       - run: pnpm build
         env:
           VITE_BASE_PATH: /osagie/
-          VITE_EJS_SERVICE_ID: service_avwk5yc
-          VITE_EJS_TEMPLATE_ID: template_ujmv7q7
-          VITE_EJS_HIRE_TEMPLATE_ID: template_8g6rckz
-          VITE_EJS_TRAINING_TEMPLATE_ID: template_ujmv7q7
-          VITE_EJS_PUBLIC_KEY: lxGImJMZYEIssOPOm
           VITE_WEB3FORMS_KEY: a5a368e0-c831-4fe8-9351-e3d27c746b2b
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

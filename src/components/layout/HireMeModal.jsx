@@ -49,14 +49,17 @@ export default function HireMeModal({ open, onOpenChange, prefillService = "" })
         `Message: ${entries.message || ''}`,
       ].join('\n');
 
-      const payload = new FormData();
-      payload.append('access_key', WEB3FORMS_KEY);
-      payload.append('subject', 'New Quote Request');
-      payload.append('from_name', entries.name || '');
-      payload.append('email', entries.email || '');
-      payload.append('message', body);
-
-      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: payload });
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: 'New Quote Request',
+          from_name: entries.name || '',
+          email: entries.email || '',
+          message: body,
+        }),
+      });
       const data = await res.json();
 
       if (data.success) {

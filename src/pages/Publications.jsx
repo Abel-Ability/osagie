@@ -115,8 +115,8 @@ export default function Publications() {
                 {expandedId === pub.id ? 'Hide Abstract' : 'Show Abstract'}
               </button>
               {expandedId === pub.id && (
-                <p className="text-sm text-muted-foreground bg-muted/50 p-4 rounded-lg mb-3 italic">
-                  Abstract content will be added soon. Please refer to the full paper via the download link below.
+                <p className="text-sm text-muted-foreground bg-muted/50 p-4 rounded-lg mb-3">
+                  {pub.abstract}
                 </p>
               )}
 

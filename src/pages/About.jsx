@@ -92,7 +92,7 @@ export default function About() {
               <h3 className="font-heading text-xl font-semibold">Teaching Experience</h3>
             </div>
             <div className="flex items-center gap-4 mb-3">
-              <span className="font-heading text-4xl font-bold text-gold">18+</span>
+              <span className="font-heading text-4xl font-bold text-gold">20+</span>
               <span className="text-lg font-medium">Years of University-Level Teaching</span>
             </div>
             <p className="text-muted-foreground">

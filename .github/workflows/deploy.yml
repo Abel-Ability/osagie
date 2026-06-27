@@ -22,7 +22,9 @@ jobs:
           VITE_EJS_SERVICE_ID: service_avwk5yc
           VITE_EJS_TEMPLATE_ID: template_ujmv7q7
           VITE_EJS_HIRE_TEMPLATE_ID: template_8g6rckz
+          VITE_EJS_TRAINING_TEMPLATE_ID: template_ujmv7q7
           VITE_EJS_PUBLIC_KEY: lxGImJMZYEIssOPOm
+          VITE_WEB3FORMS_KEY: a5a368e0-c831-4fe8-9351-e3d27c746b2b
       - run: npx wrangler deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

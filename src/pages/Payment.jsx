@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Copy, CheckCircle, Upload, CreditCard, Building2, Bitcoin } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { Copy, CheckCircle, CreditCard, Building2, Bitcoin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -8,6 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/components/ui/use-toast';
 import SectionHeading from '@/components/shared/SectionHeading';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
 
 const cryptoPayments = [
   { coin: "USDT", network: "TRC20 (Tron)", address: "TDt3878oad85DEAMQWMS3n3U6gQ2netYgq", color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" },
@@ -70,13 +72,40 @@ function CryptoCard({ crypto }) {
 }
 
 export default function Payment() {
+  const formRef = useRef(null);
   const [confirmSubmitted, setConfirmSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
+  const [error, setError] = useState('');
+  const [selectedService, setSelectedService] = useState('');
+  const [selectedCurrency, setSelectedCurrency] = useState('');
 
-  const handleConfirmSubmit = (e) => {
+  const handleConfirmSubmit = async (e) => {
     e.preventDefault();
+    setError('');
     setSending(true);
-    setTimeout(() => { setSending(false); setConfirmSubmitted(true); }, 1200);
+
+    try {
+      const formData = new FormData(formRef.current);
+      formData.append('access_key', WEB3FORMS_KEY);
+      formData.append('subject', 'New Payment Confirmation Submission');
+
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setConfirmSubmitted(true);
+      } else {
+        setError(data.message || 'Failed to send confirmation. Please try again.');
+      }
+    } catch {
+      setError('Failed to send confirmation. Please try again or email me directly.');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -139,66 +168,61 @@ export default function Payment() {
               <p className="text-center text-muted-foreground max-w-md">
                 Thank you. Your payment confirmation has been received and will be verified within 24 hours. You will receive a confirmation email shortly.
               </p>
-              <Button onClick={() => setConfirmSubmitted(false)} variant="outline" className="mt-4">Submit Another</Button>
+              <Button onClick={() => { setConfirmSubmitted(false); formRef.current?.reset(); setError(''); setSelectedService(''); setSelectedCurrency(''); }} variant="outline" className="mt-4">Submit Another</Button>
             </div>
           ) : (
-            <form onSubmit={handleConfirmSubmit} className="space-y-4">
+            <form ref={formRef} onSubmit={handleConfirmSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label>Full Name *</Label>
-                  <Input required placeholder="Your full name" />
+                  <Input name="name" required placeholder="Your full name" />
                 </div>
                 <div>
                   <Label>Email Address *</Label>
-                  <Input type="email" required placeholder="you@example.com" />
+                  <Input name="email" type="email" required placeholder="you@example.com" />
                 </div>
               </div>
               <div>
                 <Label>Service/Training Paid For *</Label>
-                <Select required>
+                <Select value={selectedService} onValueChange={setSelectedService} required>
                   <SelectTrigger><SelectValue placeholder="Select service" /></SelectTrigger>
                   <SelectContent>
                     {serviceOptions.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
                   </SelectContent>
                 </Select>
+                <input type="hidden" name="service" value={selectedService} />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label>Amount Paid *</Label>
-                  <Input required placeholder="e.g. 50000" />
+                  <Input name="amount" required placeholder="e.g. 50000" />
                 </div>
                 <div>
                   <Label>Currency *</Label>
-                  <Select required>
+                  <Select value={selectedCurrency} onValueChange={setSelectedCurrency} required>
                     <SelectTrigger><SelectValue placeholder="Select currency" /></SelectTrigger>
                     <SelectContent>
                       {["NGN", "USD", "BTC", "USDT", "ETH", "DOGE"].map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
                     </SelectContent>
                   </Select>
+                  <input type="hidden" name="currency" value={selectedCurrency} />
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label>Transaction Reference / Hash *</Label>
-                  <Input required placeholder="Reference or hash" />
+                  <Input name="reference" required placeholder="Reference or hash" />
                 </div>
                 <div>
                   <Label>Date of Payment *</Label>
-                  <Input type="date" required />
-                </div>
-              </div>
-              <div>
-                <Label>Upload Proof of Payment</Label>
-                <div className="mt-1 relative border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-gold/40 transition-colors cursor-pointer">
-                  <Upload className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
-                  <p className="text-sm text-muted-foreground">Click or drag to upload (image or PDF)</p>
-                  <input type="file" accept="image/*,.pdf" className="absolute inset-0 opacity-0 cursor-pointer" />
+                  <Input name="payment_date" type="date" required />
                 </div>
               </div>
               <div>
                 <Label>Additional Notes</Label>
-                <Textarea placeholder="Any additional information..." rows={3} />
+                <Textarea name="notes" placeholder="Any additional information..." rows={3} />
               </div>
+              {error && <p className="text-sm text-red-500">{error}</p>}
               <Button type="submit" disabled={sending} className="w-full bg-gold text-navy hover:bg-gold/90 font-semibold">
                 {sending ? "Submitting..." : "Submit Confirmation"}
               </Button>

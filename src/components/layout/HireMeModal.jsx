@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import emailjs from '@emailjs/browser';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,9 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Send, CheckCircle } from 'lucide-react';
 
-const EJS_SERVICE_ID = import.meta.env.VITE_EJS_SERVICE_ID;
-const EJS_TEMPLATE_ID = import.meta.env.VITE_EJS_HIRE_TEMPLATE_ID;
-const EJS_PUBLIC_KEY = import.meta.env.VITE_EJS_PUBLIC_KEY;
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
 
 const serviceOptions = [
   "GIS & Mapping",
@@ -38,12 +35,20 @@ export default function HireMeModal({ open, onOpenChange, prefillService = "" })
     setSending(true);
 
     try {
-      await emailjs.sendForm(EJS_SERVICE_ID, EJS_TEMPLATE_ID, formRef.current, {
-        publicKey: EJS_PUBLIC_KEY,
-      });
-      setSubmitted(true);
-      setTimeout(() => { setSubmitted(false); onOpenChange(false); }, 3000);
-    } catch (err) {
+      const formData = new FormData(formRef.current);
+      formData.append('access_key', WEB3FORMS_KEY);
+      formData.append('subject', 'New Quote Request');
+
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
+      const data = await res.json();
+
+      if (data.success) {
+        setSubmitted(true);
+        setTimeout(() => { setSubmitted(false); onOpenChange(false); }, 3000);
+      } else {
+        setError(data.message || 'Failed to send. Please try again.');
+      }
+    } catch {
       setError('Failed to send. Please try again or email me directly.');
     } finally {
       setSending(false);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { trainingProgrammes } from '@/lib/publications-data';
 import { GraduationCap, Clock, Monitor, BarChart3, CheckCircle } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -8,6 +8,8 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import SectionHeading from '@/components/shared/SectionHeading';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
 
 const modeColors = { "Online": "bg-blue-500/10 text-blue-600 dark:text-blue-400", "In-Person": "bg-green-500/10 text-green-600 dark:text-green-400", "Hybrid": "bg-purple-500/10 text-purple-600 dark:text-purple-400" };
 const levelColors = { "Beginner": "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400", "Intermediate": "bg-amber-500/10 text-amber-600 dark:text-amber-400", "Advanced": "bg-red-500/10 text-red-600 dark:text-red-400" };
@@ -46,20 +48,43 @@ function TrainingCard({ programme, onRegister }) {
 }
 
 export default function Training() {
+  const formRef = useRef(null);
   const [regOpen, setRegOpen] = useState(false);
   const [regProgramme, setRegProgramme] = useState('');
+  const [experienceLevel, setExperienceLevel] = useState('');
+  const [sending, setSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const openRegistration = (title) => {
     setRegProgramme(title);
     setRegOpen(true);
+    setExperienceLevel('');
     setSubmitted(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => { setSubmitted(false); setRegOpen(false); }, 3000);
+    setSending(true);
+
+    try {
+      const formData = new FormData(formRef.current);
+      formData.append('access_key', WEB3FORMS_KEY);
+      formData.append('subject', 'New Training Registration Interest');
+
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
+      const data = await res.json();
+
+      if (data.success) {
+        setSubmitted(true);
+        setTimeout(() => { setSubmitted(false); setRegOpen(false); }, 3000);
+      } else {
+        alert(data.message || 'Submission failed. Please try again.');
+      }
+    } catch {
+      alert('Submission failed. Please try again.');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -89,26 +114,26 @@ export default function Training() {
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <Label>Full Name *</Label>
-                <Input required placeholder="Your name" />
+                <Input name="name" required placeholder="Your name" />
               </div>
               <div>
                 <Label>Email *</Label>
-                <Input type="email" required placeholder="you@example.com" />
+                <Input name="email" type="email" required placeholder="you@example.com" />
               </div>
               <div>
                 <Label>Institution</Label>
-                <Input placeholder="University / Organisation" />
+                <Input name="institution" placeholder="University / Organisation" />
               </div>
               <div>
                 <Label>Programme of Interest</Label>
-                <Input value={regProgramme} readOnly className="bg-muted" />
+                <Input name="programme" value={regProgramme} readOnly className="bg-muted" />
               </div>
               <div>
                 <Label>Experience Level</Label>
-                <Select>
+                <Select value={experienceLevel} onValueChange={setExperienceLevel}>
                   <SelectTrigger><SelectValue placeholder="Select level" /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="beginner">Beginner</SelectItem>
@@ -116,13 +141,14 @@ export default function Training() {
                     <SelectItem value="advanced">Advanced</SelectItem>
                   </SelectContent>
                 </Select>
+                <input type="hidden" name="experience_level" value={experienceLevel} />
               </div>
               <div>
                 <Label>Preferred Start Date</Label>
-                <Input type="date" />
+                <Input name="start_date" type="date" />
               </div>
-              <Button type="submit" className="w-full bg-gold text-navy hover:bg-gold/90 font-semibold">
-                Submit Registration
+              <Button type="submit" disabled={sending} className="w-full bg-gold text-navy hover:bg-gold/90 font-semibold">
+                {sending ? "Sending..." : "Submit Registration"}
               </Button>
             </form>
           )}

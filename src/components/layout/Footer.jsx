@@ -6,6 +6,8 @@ const socialLinks = [
   { name: "ResearchGate", url: "https://www.researchgate.net/profile/Abel-Osagie" },
   { name: "Google Scholar", url: "https://scholar.google.com/citations?user=ia0zhwMAAAAJ&hl=en&authuser=1" },
   { name: "ORCID", url: "https://orcid.org/0000-0002-8441-5793" },
+  { name: "Academia.edu", url: "https://uniabuja.academia.edu/AbelOsagie" },
+  { name: "Scopus", url: "https://www.scopus.com/authid/detail.uri?authorId=57221920908" },
 ];
 
 export default function Footer() {

@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import emailjs from '@emailjs/browser';
 import { Mail, Phone, Globe, Send, CheckCircle, ExternalLink, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,15 +10,14 @@ import AcademicProfileLinks from '@/components/shared/AcademicProfileLinks';
 
 const howOptions = ["Google Search", "Social Media", "Colleague/Friend", "Academic Publication", "Conference", "Other"];
 
-const EJS_SERVICE_ID = import.meta.env.VITE_EJS_SERVICE_ID;
-const EJS_TEMPLATE_ID = import.meta.env.VITE_EJS_TEMPLATE_ID;
-const EJS_PUBLIC_KEY = import.meta.env.VITE_EJS_PUBLIC_KEY;
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
 
 export default function Contact() {
   const formRef = useRef(null);
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
+  const [howFound, setHowFound] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,11 +25,19 @@ export default function Contact() {
     setSending(true);
 
     try {
-      await emailjs.sendForm(EJS_SERVICE_ID, EJS_TEMPLATE_ID, formRef.current, {
-        publicKey: EJS_PUBLIC_KEY,
-      });
-      setSubmitted(true);
-    } catch (err) {
+      const formData = new FormData(formRef.current);
+      formData.append('access_key', WEB3FORMS_KEY);
+      formData.append('subject', 'New Contact Form Message');
+
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
+      const data = await res.json();
+
+      if (data.success) {
+        setSubmitted(true);
+      } else {
+        setError(data.message || 'Failed to send message. Please try again.');
+      }
+    } catch {
       setError('Failed to send message. Please try again or email me directly.');
     } finally {
       setSending(false);
@@ -85,12 +91,13 @@ export default function Contact() {
                 </div>
                 <div>
                   <Label>How did you find me?</Label>
-                  <Select>
+                  <Select value={howFound} onValueChange={setHowFound}>
                     <SelectTrigger><SelectValue placeholder="Select an option (optional)" /></SelectTrigger>
                     <SelectContent>
                       {howOptions.map(o => <SelectItem key={o} value={o}>{o}</SelectItem>)}
                     </SelectContent>
                   </Select>
+                  <input type="hidden" name="how_found" value={howFound} />
                 </div>
                 {error && <p className="text-sm text-red-500">{error}</p>}
                 <Button type="submit" disabled={sending} className="w-full bg-gold text-navy hover:bg-gold/90 font-semibold">

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -29,6 +29,15 @@ export default function HireMeModal({ open, onOpenChange, prefillService = "" })
   const [error, setError] = useState('');
   const [selectedService, setSelectedService] = useState(prefillService);
 
+  useEffect(() => {
+    if (open) {
+      setSelectedService(prefillService);
+      setSubmitted(false);
+      setError('');
+      formRef.current?.reset();
+    }
+  }, [open, prefillService]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -36,30 +45,10 @@ export default function HireMeModal({ open, onOpenChange, prefillService = "" })
 
     try {
       const fd = new FormData(formRef.current);
-      const entries = Object.fromEntries(fd);
+      fd.append('access_key', WEB3FORMS_KEY);
+      fd.append('subject', 'New Contact Form Message');
 
-      const body = [
-        `Name: ${entries.name || ''}`,
-        `Email: ${entries.email || ''}`,
-        `Phone: ${entries.phone || 'N/A'}`,
-        `Organisation: ${entries.organisation || 'N/A'}`,
-        `Service: ${entries.service || 'N/A'}`,
-        `Budget: ${entries.budget || 'N/A'}`,
-        `Preferred Start: ${entries.start_date || 'N/A'}`,
-        `Message: ${entries.message || ''}`,
-      ].join('\n');
-
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_KEY,
-          subject: 'New Quote Request',
-          from_name: entries.name || '',
-          email: entries.email || '',
-          message: body,
-        }),
-      });
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
       const data = await res.json();
 
       if (data.success) {

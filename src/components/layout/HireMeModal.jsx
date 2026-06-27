@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,6 +7,10 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Send, CheckCircle } from 'lucide-react';
+
+const EJS_SERVICE_ID = import.meta.env.VITE_EJS_SERVICE_ID;
+const EJS_TEMPLATE_ID = import.meta.env.VITE_EJS_TEMPLATE_ID;
+const EJS_PUBLIC_KEY = import.meta.env.VITE_EJS_PUBLIC_KEY;
 
 const serviceOptions = [
   "GIS & Mapping",
@@ -21,17 +26,28 @@ const serviceOptions = [
 ];
 
 export default function HireMeModal({ open, onOpenChange, prefillService = "" }) {
+  const formRef = useRef(null);
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
+  const [error, setError] = useState('');
+  const [selectedService, setSelectedService] = useState(prefillService);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
     setSending(true);
-    setTimeout(() => {
-      setSending(false);
+
+    try {
+      await emailjs.sendForm(EJS_SERVICE_ID, EJS_TEMPLATE_ID, formRef.current, {
+        publicKey: EJS_PUBLIC_KEY,
+      });
       setSubmitted(true);
       setTimeout(() => { setSubmitted(false); onOpenChange(false); }, 3000);
-    }, 1200);
+    } catch (err) {
+      setError('Failed to send. Please try again or email me directly.');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -51,30 +67,31 @@ export default function HireMeModal({ open, onOpenChange, prefillService = "" })
             </p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="hire-name">Full Name *</Label>
-                <Input id="hire-name" required placeholder="Your name" />
+                <Input id="hire-name" name="name" required placeholder="Your name" />
               </div>
               <div>
                 <Label htmlFor="hire-email">Email *</Label>
-                <Input id="hire-email" type="email" required placeholder="you@example.com" />
+                <Input id="hire-email" name="email" type="email" required placeholder="you@example.com" />
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="hire-phone">Phone</Label>
-                <Input id="hire-phone" type="tel" placeholder="+234..." />
+                <Input id="hire-phone" name="phone" type="tel" placeholder="+234..." />
               </div>
               <div>
                 <Label htmlFor="hire-org">Organisation</Label>
-                <Input id="hire-org" placeholder="Company / University" />
+                <Input id="hire-org" name="organisation" placeholder="Company / University" />
               </div>
             </div>
             <div>
               <Label>Service Required *</Label>
-              <Select defaultValue={prefillService} required>
+              <input type="hidden" name="service" value={selectedService} />
+              <Select value={selectedService} onValueChange={setSelectedService} required>
                 <SelectTrigger><SelectValue placeholder="Select a service" /></SelectTrigger>
                 <SelectContent>
                   {serviceOptions.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
@@ -83,18 +100,19 @@ export default function HireMeModal({ open, onOpenChange, prefillService = "" })
             </div>
             <div>
               <Label htmlFor="hire-desc">Project Description *</Label>
-              <Textarea id="hire-desc" required rows={4} placeholder="Describe your project requirements..." />
+              <Textarea id="hire-desc" name="description" required rows={4} placeholder="Describe your project requirements..." />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="hire-budget">Budget Range</Label>
-                <Input id="hire-budget" placeholder="e.g. $500 - $2000" />
+                <Input id="hire-budget" name="budget" placeholder="e.g. $500 - $2000" />
               </div>
               <div>
                 <Label htmlFor="hire-date">Preferred Start Date</Label>
-                <Input id="hire-date" type="date" />
+                <Input id="hire-date" name="start_date" type="date" />
               </div>
             </div>
+            {error && <p className="text-sm text-red-500">{error}</p>}
             <Button type="submit" disabled={sending} className="w-full bg-gold text-navy hover:bg-gold/90 font-semibold">
               {sending ? "Sending..." : <><Send className="w-4 h-4 mr-2" /> Submit Request</>}
             </Button>

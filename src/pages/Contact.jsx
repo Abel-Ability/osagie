@@ -62,17 +62,17 @@ export default function Contact() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="contact-name">Full Name *</Label>
-                    <Input id="contact-name" name="from_name" required placeholder="Your name" />
+                    <Input id="contact-name" name="name" required placeholder="Your name" />
                   </div>
                   <div>
                     <Label htmlFor="contact-email">Email *</Label>
-                    <Input id="contact-email" name="from_email" type="email" required placeholder="you@example.com" />
+                    <Input id="contact-email" name="email" type="email" required placeholder="you@example.com" />
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="contact-phone">Phone</Label>
-                    <Input id="contact-phone" name="from_phone" type="tel" placeholder="+234..." />
+                    <Input id="contact-phone" name="phone" type="tel" placeholder="+234..." />
                   </div>
                   <div>
                     <Label htmlFor="contact-subject">Subject *</Label>

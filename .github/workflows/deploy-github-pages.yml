@@ -32,8 +32,8 @@ jobs:
       - run: pnpm build
         env:
           VITE_BASE_PATH: /osagie/
-          VITE_EJS_SERVICE_ID: service_j3qhw5l
-          VITE_EJS_TEMPLATE_ID: template_crbw6jg
+          VITE_EJS_SERVICE_ID: service_avwk5yc
+          VITE_EJS_TEMPLATE_ID: template_ujmv7q7
           VITE_EJS_PUBLIC_KEY: lxGImJMZYEIssOPOm
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

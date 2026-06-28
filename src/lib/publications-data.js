@@ -414,7 +414,7 @@ export const galleryImages = [
   { id: 10, title: "Seismic Raypaths to Stations in Peninsular Malaysia", src: "https://drive.google.com/thumbnail?id=1MQ0J0IJKweHu22wDd4gq01MgxqA0COL6&sz=w800", category: "Malaysia", subcategory: "Seismology" },
   { id: 11, title: "Digital Elevation Model of Nigeria", src: "https://drive.google.com/thumbnail?id=1XiKk61KCOwfabNLVSQe235-XYyXF3V31&sz=w800", category: "Nigeria", subcategory: "DEM" },
   { id: 12, title: "Bouguer Anomaly Map of Nigeria", src: "https://drive.google.com/thumbnail?id=1MTfEc0iEO9Vmsu2Xd_XQF9_xKxTGIVWm&sz=w800", category: "Nigeria", subcategory: "Potential Field" },
-  { id: 13, title: "Magnetic Anomaly Map of Nigeria", src: "https://drive.google.com/thumbnail?=1yLt9bDy_HNtMbmecX12knG7SUe48xFMd", category: "Nigeria", subcategory: "Potential Field" },
+  { id: 13, title: "Magnetic Anomaly Map of Nigeria", src: "https://drive.google.com/thumbnail?id=1yLt9bDy_HNtMbmecX12knG7SUe48xFMd&sz=w800", category: "Nigeria", subcategory: "Potential Field" },
   { id: 14, title: "Drainage Network of Nigeria", src: "https://drive.google.com/thumbnail?id=1Tj-FD--6QF2elc0J6DnlkbkchDE5Lc1t&sz=w800", category: "Nigeria", subcategory: "Drainage" },
   { id: 15, title: "Drainage Network of the FCT, Abuja, Nigeria", src: "https://drive.google.com/thumbnail?id=1eZOKMbz3dEj5pH719v-HgVNl-VLzxi9l&sz=w800", category: "FCT/Abuja", subcategory: "Drainage" },
   { id: 16, title: "Land Use/Land Cover of the FCT, Abuja, Nigeria", src: "https://drive.google.com/thumbnail?id=1Sp-ZeP6UwsgcRoRP9hTQG0f7eNTEU8ec&sz=w800", category: "FCT/Abuja", subcategory: "Land Use" },

@@ -15,6 +15,46 @@
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Netlify Form Detection (hidden, for static detection at build time) -->
+    <form name="Contact" data-netlify="true" netlify hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="subject" />
+      <textarea name="message"></textarea>
+      <input type="text" name="how_found" />
+    </form>
+    <form name="Quote Request" data-netlify="true" netlify hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="organisation" />
+      <input type="text" name="service" />
+      <textarea name="message"></textarea>
+      <input type="text" name="budget" />
+      <input type="text" name="start_date" />
+    </form>
+    <form name="Training Registration" data-netlify="true" netlify hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="institution" />
+      <input type="text" name="programme" />
+      <input type="text" name="experience_level" />
+      <input type="text" name="start_date" />
+      <textarea name="message"></textarea>
+    </form>
+    <form name="Payment Confirmation" data-netlify="true" netlify hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="service" />
+      <input type="text" name="amount" />
+      <input type="text" name="currency" />
+      <input type="text" name="reference" />
+      <input type="text" name="payment_date" />
+      <textarea name="message"></textarea>
+    </form>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

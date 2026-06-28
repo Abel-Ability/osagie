@@ -7,10 +7,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import SectionHeading from '@/components/shared/SectionHeading';
 import AcademicProfileLinks from '@/components/shared/AcademicProfileLinks';
+import { submitForm } from '@/lib/submit-form';
 
 const howOptions = ["Google Search", "Social Media", "Colleague/Friend", "Academic Publication", "Conference", "Other"];
-
-const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
 
 export default function Contact() {
   const formRef = useRef(null);
@@ -25,12 +24,7 @@ export default function Contact() {
     setSending(true);
 
     try {
-      const formData = new FormData(formRef.current);
-      formData.append('access_key', WEB3FORMS_KEY);
-      formData.append('subject', 'New Contact Form Message');
-
-      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
-      const data = await res.json();
+      const data = await submitForm(formRef, { formName: 'Contact', subject: 'New Contact Form Message' });
 
       if (data.success) {
         setSubmitted(true);
@@ -64,7 +58,7 @@ export default function Contact() {
                 </Button>
               </div>
             ) : (
-              <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+              <form ref={formRef} onSubmit={handleSubmit} data-netlify="true" className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="contact-name">Full Name *</Label>

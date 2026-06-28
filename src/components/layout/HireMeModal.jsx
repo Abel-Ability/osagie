@@ -6,8 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Send, CheckCircle } from 'lucide-react';
-
-const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
+import { submitForm } from '@/lib/submit-form';
 
 const serviceOptions = [
   "GIS & Mapping",
@@ -44,12 +43,7 @@ export default function HireMeModal({ open, onOpenChange, prefillService = "" })
     setSending(true);
 
     try {
-      const fd = new FormData(formRef.current);
-      fd.append('access_key', WEB3FORMS_KEY);
-      fd.append('subject', 'New Contact Form Message');
-
-      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
-      const data = await res.json();
+      const data = await submitForm(formRef, { formName: 'Quote Request', subject: 'New Quote Request' });
 
       if (data.success) {
         setSubmitted(true);
@@ -81,7 +75,7 @@ export default function HireMeModal({ open, onOpenChange, prefillService = "" })
             </p>
           </div>
         ) : (
-          <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+          <form ref={formRef} onSubmit={handleSubmit} data-netlify="true" className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="hire-name">Full Name *</Label>

@@ -8,8 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/components/ui/use-toast';
 import SectionHeading from '@/components/shared/SectionHeading';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-
-const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
+import { submitForm } from '@/lib/submit-form';
 
 const cryptoPayments = [
   { coin: "USDT", network: "TRC20 (Tron)", address: "TDt3878oad85DEAMQWMS3n3U6gQ2netYgq", color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" },
@@ -85,16 +84,7 @@ export default function Payment() {
     setSending(true);
 
     try {
-      const formData = new FormData(formRef.current);
-      formData.append('access_key', WEB3FORMS_KEY);
-      formData.append('subject', 'New Payment Confirmation Submission');
-
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const data = await res.json();
+      const data = await submitForm(formRef, { formName: 'Payment Confirmation', subject: 'New Payment Confirmation Submission' });
 
       if (data.success) {
         setConfirmSubmitted(true);
@@ -171,7 +161,7 @@ export default function Payment() {
               <Button onClick={() => { setConfirmSubmitted(false); formRef.current?.reset(); setError(''); setSelectedService(''); setSelectedCurrency(''); }} variant="outline" className="mt-4">Submit Another</Button>
             </div>
           ) : (
-            <form ref={formRef} onSubmit={handleConfirmSubmit} className="space-y-4">
+            <form ref={formRef} onSubmit={handleConfirmSubmit} data-netlify="true" className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label>Full Name *</Label>

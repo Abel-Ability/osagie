@@ -421,10 +421,23 @@ export const galleryImages = [
   { id: 17, title: "Land Use/Land Cover Change Detection of the FCT, Abuja, Nigeria", src: "https://drive.google.com/thumbnail?id=17xEcMuupMWY18uhrsRHYdD9uCtBTP4iG&sz=w800", category: "FCT/Abuja", subcategory: "Land Use" },
   { id: 18, title: "Magnetic Intensity Variation within the FCT, Abuja, Nigeria", src: "https://drive.google.com/thumbnail?id=172zJGI-eGdRLLuB2gGW9Dep8zsbWzifp&sz=w800", category: "FCT/Abuja", subcategory: "Potential Field" },
   { id: 19, title: "Bauchi State, Nigeria", src: "https://drive.google.com/thumbnail?id=11WyuMnV7zlQVU9wFUW47GAVVGgSCUMm5&sz=w800", category: "Nigeria", subcategory: "Other" },
-  { id: 20, title: "Campus Map", src: "https://drive.google.com/thumbnail?id=1lDbMf0eK1RwfvlceR9Y5UGpeseiNw4RY&sz=w800", category: "Other", subcategory: "Other" }
+  { id: 20, title: "Campus Map", src: "https://drive.google.com/thumbnail?id=1lDbMf0eK1RwfvlceR9Y5UGpeseiNw4RY&sz=w800", category: "Other", subcategory: "Other" },
+  { id: 21, title: "Global Earth Relief", src: "https://drive.google.com/thumbnail?id=1kVEjWA4HU2HviMx0R89_OqVNrfHiXpQl&sz=w800", category: "Global", subcategory: "Relief" },
+  { id: 22, title: "Global Magnetic Anomaly Map (EMAG)", src: "https://drive.google.com/thumbnail?id=1w96zKc7foqRY8YQXAXxUdP2WD42uYVnE&sz=w800", category: "Global", subcategory: "Potential Field" },
+  { id: 23, title: "Global Bouguer Anomaly Map", src: "https://drive.google.com/thumbnail?id=1B9MYad951ZgFM7Fb11gjdDOTAK2kOrk5&sz=w800", category: "Global", subcategory: "Potential Field" },
+  { id: 24, title: "Curie Depth Point Estimates across Nigeria", src: "https://drive.google.com/thumbnail?id=194codd06ckJKYA_UC3UgV7-0zVACudAc&sz=w800", category: "Nigeria", subcategory: "Potential Field" },
+  { id: 25, title: "Topography and Moho Depth of Afar Region", src: "https://drive.google.com/thumbnail?id=1NgT8pFPRGdwr2BpkAxEfrG66qUZSyIO1&sz=w800", category: "Africa", subcategory: "Geology" },
+  { id: 26, title: "Seismic Tomographic Depth Slices Beneath the Afar Region", src: "https://drive.google.com/thumbnail?id=1ihnCglMlHPsARYGI_3OrDxGz9PHrhAfI&sz=w800", category: "Africa", subcategory: "Seismology" },
+  { id: 27, title: "Temperature at Depths Beneath Nigeria (Sobh et al.,2020)", src: "https://drive.google.com/thumbnail?id=1yp96pBE5jriScxzy3iZkKXbIpLqHGHE_&sz=w800", category: "Nigeria", subcategory: "Potential Field" },
+  { id: 28, title: "Pressure at Depths Beneath Nigeria (Sobh et al.,2020)", src: "https://drive.google.com/thumbnail?id=1wTvYRMdATgti1w_YbtFKkyRnPJMaT_4b&sz=w800", category: "Nigeria", subcategory: "Potential Field" },
+  { id: 29, title: "Regional Magnetic Anomaly Beneath Nigeria", src: "https://drive.google.com/thumbnail?id=1i1Ced3ZBoPjj2RUSpioPeYpS9vE0ZCtb&sz=w800", category: "Nigeria", subcategory: "Potential Field" },
+  { id: 30, title: "Sedimentary Thickness Beneath Nigeria", src: "https://drive.google.com/thumbnail?id=1H_BqlOEnX8ZCMSJZ0JNjqb_F2DErGolx&sz=w800", category: "Nigeria", subcategory: "Geology" },
+  { id: 31, title: "Curie Depth Point Estimates across Nigeria: Li et al. (2017) vs Gard and Hasterok (2021)", src: "https://drive.google.com/thumbnail?id=1CGAlAuyXJjmXMfozfEr6GwbbFUtSrHPQ&sz=w800", category: "Nigeria", subcategory: "Potential Field" },
+  { id: 32, title: "Magnetic Data Analysis across Nigeria", src: "https://drive.google.com/thumbnail?id=1bKug81nHkzCrtQyYSxuBAMi9WkO4eQlK&sz=w800", category: "Nigeria", subcategory: "Potential Field" },
+  { id: 33, title: "Nigeria's Topography and Depth to Bottom of Crust", src: "https://drive.google.com/thumbnail?id=1El-Eu_ztOHBBuTte6OohwHm7FYfhKbiS&sz=w800", category: "Nigeria", subcategory: "Geology" }
 ];
 
-export const galleryCategories = ["All", "Africa", "Nigeria", "Malaysia", "Libya", "FCT/Abuja", "Seismology", "Geology", "Drainage", "Other"];
+export const galleryCategories = ["All", "Africa", "Nigeria", "Malaysia", "Libya", "FCT/Abuja", "Global", "Seismology", "Geology", "Drainage", "Other"];
 
 export const softwareTools = [
   {

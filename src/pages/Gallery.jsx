@@ -4,7 +4,7 @@ import { X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 import SectionHeading from '@/components/shared/SectionHeading';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
-const categories = ["All", "Africa", "Nigeria", "Malaysia", "Libya", "FCT/Abuja", "Seismology", "Geology", "Drainage", "Other"];
+const categories = ["All", "Africa", "Nigeria", "Malaysia", "Libya", "FCT/Abuja", "Global", "Seismology", "Geology", "Drainage", "Other"];
 
 function GalleryCard({ img, onClick }) {
   const { ref, isVisible } = useScrollReveal(0.1);

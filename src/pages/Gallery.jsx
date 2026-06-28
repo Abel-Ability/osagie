@@ -99,12 +99,12 @@ export default function Gallery() {
       <div className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center" onClick={closeLightbox}>
           <div className="absolute top-4 right-4 flex items-center gap-2 z-10">
             <a
-            href={currentImage.src}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="p-2 rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors"
-            aria-label="Open full size">
+              href={currentImage.url || currentImage.src}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="p-2 rounded-lg bg-white/10 text-white hover:bg-white/20 transition-colors"
+              aria-label="Open full size">
             
               <Maximize2 className="w-5 h-5" />
             </a>

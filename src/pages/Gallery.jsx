@@ -21,7 +21,6 @@ function GalleryCard({ img, onClick }) {
           src={img.src}
           alt={img.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          referrerPolicy="no-referrer"
           loading="lazy" />
         
       </div>
@@ -123,8 +122,7 @@ export default function Gallery() {
             <img
             src={currentImage.src}
             alt={currentImage.title}
-            className="max-w-full max-h-[75vh] object-contain mx-auto rounded-lg"
-            referrerPolicy="no-referrer" />
+            className="max-w-full max-h-[75vh] object-contain mx-auto rounded-lg" />
           
             <div className="text-center mt-4">
               <h3 className="text-white font-heading text-lg font-semibold">{currentImage.title}</h3>

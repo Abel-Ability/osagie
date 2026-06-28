@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { galleryImages } from '@/lib/publications-data';
-import { X, ChevronLeft, ChevronRight, Download, Maximize2 } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 import SectionHeading from '@/components/shared/SectionHeading';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 

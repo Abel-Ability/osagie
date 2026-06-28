@@ -20,7 +20,7 @@ export default function CTABanner() {
           onClick={() => openHireMe()}
           className="inline-flex items-center gap-2 px-8 py-3 bg-gold text-navy font-bold rounded-lg hover:bg-gold/90 transition-all hover:shadow-lg hover:shadow-gold/20"
         >
-          <Sparkles className="w-5 h-5" /> Hire Me / Request a Quote
+          <Sparkles className="w-5 h-5" /> Hire Me
         </button>
       </div>
     </section>

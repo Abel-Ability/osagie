@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Copy, CheckCircle, CreditCard, Building2, Bitcoin } from 'lucide-react';
+import { Copy, CheckCircle, CreditCard, Building2, Bitcoin, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -8,8 +8,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/components/ui/use-toast';
 import SectionHeading from '@/components/shared/SectionHeading';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { submitFormSpark } from '@/lib/formspark';
+import { uploadFile, isConfigured } from '@/lib/file-upload';
 
-const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
+const PAYMENT_FORM_ID = 'JR6d7xQE8';
 
 const cryptoPayments = [
   { coin: "USDT", network: "TRC20 (Tron)", address: "TDt3878oad85DEAMQWMS3n3U6gQ2netYgq", color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" },
@@ -78,41 +80,46 @@ export default function Payment() {
   const [error, setError] = useState('');
   const [selectedService, setSelectedService] = useState('');
   const [selectedCurrency, setSelectedCurrency] = useState('');
+  const [paymentFile, setPaymentFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
 
   const handleConfirmSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setSending(true);
 
+    let evidenceUrl = '';
+
+    if (paymentFile) {
+      if (!isConfigured()) {
+        setError('File upload is not configured. Please configure IMGBB_API_KEY in src/lib/file-upload.js or remove the file.');
+        return;
+      }
+      setUploading(true);
+      try {
+        evidenceUrl = await uploadFile(paymentFile);
+      } catch (err) {
+        setError('Failed to upload payment evidence: ' + (err.message || 'unknown error'));
+        setUploading(false);
+        return;
+      }
+      setUploading(false);
+    }
+
+    setSending(true);
     try {
       const entries = Object.fromEntries(new FormData(formRef.current));
-
-      const body = [
-        `Name: ${entries.name || ''}`,
-        `Email: ${entries.email || ''}`,
-        `Service: ${entries.service || 'N/A'}`,
-        `Amount: ${entries.amount || 'N/A'}`,
-        `Currency: ${entries.currency || 'N/A'}`,
-        `Reference: ${entries.reference || 'N/A'}`,
-        `Payment Date: ${entries.payment_date || 'N/A'}`,
-        `Message: ${entries.message || ''}`,
-      ].join('\n');
-
-      const payload = new FormData();
-      payload.append('access_key', WEB3FORMS_KEY);
-      payload.append('subject', 'New Payment Confirmation Submission');
-      payload.append('from_name', entries.name || '');
-      payload.append('email', entries.email || '');
-      payload.append('message', body);
-
-      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: payload });
-      const data = await res.json();
-
-      if (data.success) {
-        setConfirmSubmitted(true);
-      } else {
-        setError(data.message || 'Failed to send confirmation. Please try again.');
-      }
+      await submitFormSpark(PAYMENT_FORM_ID, {
+        name: entries.name || '',
+        email: entries.email || '',
+        service: entries.service || '',
+        amount: entries.amount || '',
+        currency: entries.currency || '',
+        reference: entries.reference || '',
+        payment_date: entries.payment_date || '',
+        message: entries.message || '',
+        payment_evidence_url: evidenceUrl,
+      });
+      setConfirmSubmitted(true);
     } catch {
       setError('Failed to send confirmation. Please try again or email me directly.');
     } finally {
@@ -180,7 +187,7 @@ export default function Payment() {
               <p className="text-center text-muted-foreground max-w-md">
                 Thank you. Your payment confirmation has been received and will be verified within 24 hours. You will receive a confirmation email shortly.
               </p>
-              <Button onClick={() => { setConfirmSubmitted(false); formRef.current?.reset(); setError(''); setSelectedService(''); setSelectedCurrency(''); }} variant="outline" className="mt-4">Submit Another</Button>
+              <Button onClick={() => { setConfirmSubmitted(false); formRef.current?.reset(); setError(''); setSelectedService(''); setSelectedCurrency(''); setPaymentFile(null); }} variant="outline" className="mt-4">Submit Another</Button>
             </div>
           ) : (
             <form ref={formRef} onSubmit={handleConfirmSubmit} className="space-y-4">
@@ -234,9 +241,34 @@ export default function Payment() {
                 <Label>Additional Notes / Message</Label>
                 <Textarea name="message" placeholder="Any additional information..." rows={3} />
               </div>
+              <div>
+                <Label>Upload Payment Evidence</Label>
+                <div className="flex items-center gap-3">
+                  <label className="flex items-center gap-2 px-4 py-2.5 border border-border rounded-lg cursor-pointer hover:bg-muted transition-colors text-sm font-medium">
+                    <Upload className="w-4 h-4 text-gold" />
+                    {paymentFile ? paymentFile.name : 'Choose file'}
+                    <input
+                      type="file"
+                      accept="image/*,.pdf"
+                      className="hidden"
+                      onChange={(e) => setPaymentFile(e.target.files[0] || null)}
+                    />
+                  </label>
+                  {paymentFile && (
+                    <button
+                      type="button"
+                      onClick={() => setPaymentFile(null)}
+                      className="text-xs text-muted-foreground hover:text-red-500 transition-colors"
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
+                <p className="text-xs text-muted-foreground mt-1.5">Accepted: images or PDF (max 10 MB). File will be uploaded to secure storage.</p>
+              </div>
               {error && <p className="text-sm text-red-500">{error}</p>}
-              <Button type="submit" disabled={sending} className="w-full bg-gold text-navy hover:bg-gold/90 font-semibold">
-                {sending ? "Submitting..." : "Submit Confirmation"}
+              <Button type="submit" disabled={sending || uploading} className="w-full bg-gold text-navy hover:bg-gold/90 font-semibold">
+                {uploading ? "Uploading evidence..." : sending ? "Submitting..." : "Submit Confirmation"}
               </Button>
             </form>
           )}

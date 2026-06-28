@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
 import { services } from '@/lib/publications-data';
-import { Map, Activity, BarChart3, Briefcase, GraduationCap, Users, FolderKanban, Globe, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Map, Activity, BarChart3, Briefcase, GraduationCap, Users, FolderKanban, Globe, ChevronDown, ChevronUp } from 'lucide-react';
 import SectionHeading from '@/components/shared/SectionHeading';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
@@ -50,45 +47,14 @@ function ServiceCard({ service }) {
 }
 
 export default function Services() {
-  const { openHireMe } = useOutletContext();
-  const [selectedService, setSelectedService] = useState('');
-
   return (
     <div className="py-20 px-4">
       <div className="max-w-7xl mx-auto">
         <SectionHeading title="Professional Services" subtitle="Comprehensive solutions spanning research, technology, training, and consultancy" />
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {services.map(s => (
             <ServiceCard key={s.id} service={s} />
           ))}
-        </div>
-
-        <div className="max-w-xl mx-auto bg-card border border-border rounded-2xl p-8 text-center">
-          <h3 className="font-heading text-xl font-semibold mb-2">Ready to Get Started?</h3>
-          <p className="text-sm text-muted-foreground mb-6">
-            Select a service and submit a request. I will respond within 24–48 hours.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3">
-            <div className="flex-1">
-              <Select value={selectedService} onValueChange={setSelectedService}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Choose a service..." />
-                </SelectTrigger>
-                <SelectContent>
-                  {services.map(s => (
-                    <SelectItem key={s.id} value={s.title}>{s.title}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <Button
-              onClick={() => { if (selectedService) openHireMe(selectedService); }}
-              disabled={!selectedService}
-              className="bg-gold text-navy hover:bg-gold/90 font-semibold"
-            >
-              <Sparkles className="w-4 h-4 mr-2" /> Request Service
-            </Button>
-          </div>
         </div>
       </div>
     </div>

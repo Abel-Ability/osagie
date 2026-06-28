@@ -552,60 +552,49 @@ export const services = [
 
 export const trainingProgrammes = [
   {
-    title: "GIS Fundamentals with QGIS/ArcGIS",
+    title: "Advanced Microsoft Word/Excel",
+    description: "Master document automation, styles, templates, mail merge, cross-referencing, and thesis/journal formatting with advanced Word techniques, plus Excel formulas, pivot tables, data analysis tools, macros, and visualisation.",
+    duration: "2–3 weeks"
+  },
+  {
+    title: "Fortran for Fast Scientific Computing",
+    description: "Introduction to modern Fortran programming for high-performance scientific computing — covering array operations, file I/O, modular programming, and numerical methods.",
+    duration: "3–4 weeks"
+  },
+  {
+    title: "GIS Fundamentals with ArcGIS/QGIS/Global Mapper",
     description: "Comprehensive introduction to Geographic Information Systems covering data acquisition, spatial analysis, map production, and GIS project management using industry-standard software.",
-    duration: "4–6 weeks",
-    mode: "Hybrid",
-    level: "Beginner"
-  },
-  {
-    title: "Remote Sensing and Image Analysis",
-    description: "Learn satellite image acquisition, processing, classification, and change detection techniques for environmental monitoring and land use mapping.",
-    duration: "3–4 weeks",
-    mode: "Online",
-    level: "Intermediate"
-  },
-  {
-    title: "Python for Geoscientists",
-    description: "Hands-on Python programming for geoscience applications including data analysis, visualisation, geospatial processing, and scientific computing.",
-    duration: "6–8 weeks",
-    mode: "Online",
-    level: "Beginner"
+    duration: "2–3 weeks"
   },
   {
     title: "Google Apps Script for Educators",
     description: "Build custom educational tools, automate workflows, and create web applications using Google Apps Script for academic administration.",
-    duration: "3–4 weeks",
-    mode: "Online",
-    level: "Beginner"
+    duration: "2–3 weeks"
+  },
+  {
+    title: "Mastering Generic Mapping Tools (GMT)",
+    description: "A comprehensive introduction to Generic Mapping Tools (GMT) for geoscientists — covering map projections, grid operations, seismological and geophysical data visualisation, shell scripting, and automation for publication-ready figures.",
+    duration: "2–3 weeks"
+  },
+  {
+    title: "Python for Geoscientists",
+    description: "Hands-on Python programming for geoscience applications including data analysis, visualisation, geospatial processing, and scientific computing.",
+    duration: "2–3 weeks"
+  },
+  {
+    title: "Reference Management with EndNote",
+    description: "Learn to organise references, automate citation formatting, and build bibliographies using EndNote for academic writing and journal submissions.",
+    duration: "1 week"
+  },
+  {
+    title: "Remote Sensing and Image Analysis",
+    description: "Learn satellite image acquisition, processing, classification, and change detection techniques for environmental monitoring and land use mapping.",
+    duration: "2–3 weeks"
   },
   {
     title: "Research Methods and Academic Writing",
     description: "Master research methodology, literature review techniques, data analysis, and scholarly writing for journal publication and thesis preparation.",
-    duration: "4–5 weeks",
-    mode: "Hybrid",
-    level: "Intermediate"
-  },
-  {
-    title: "Geophysical Field Survey Methods",
-    description: "Practical training in geophysical data acquisition, field procedures, instrument operation, and data quality control for various survey types.",
-    duration: "2–3 weeks",
-    mode: "In-Person",
-    level: "Intermediate"
-  },
-  {
-    title: "Seismic Data Processing Fundamentals",
-    description: "Introduction to seismic data processing workflows, velocity analysis, migration, and interpretation techniques for exploration and research.",
-    duration: "4–6 weeks",
-    mode: "Online",
-    level: "Advanced"
-  },
-  {
-    title: "Scientific Data Visualisation",
-    description: "Create publication-quality figures, maps, and interactive visualisations using Python, MATLAB, and open-source tools for research communication.",
-    duration: "2–3 weeks",
-    mode: "Online",
-    level: "Beginner"
+    duration: "1–2 weeks"
   }
 ];
 

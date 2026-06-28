@@ -2,7 +2,6 @@ import React from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { softwareTools, tutorialVideos } from '@/lib/publications-data';
 import { ExternalLink, Sparkles, Code2, Play, Monitor } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import SectionHeading from '@/components/shared/SectionHeading';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 

@@ -1,23 +1,49 @@
-import React, { useState, useRef } from 'react';
-import { Mail, Phone, Globe, Send, CheckCircle, ExternalLink, MapPin } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { Mail, Phone, Globe, MapPin, Send, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import SectionHeading from '@/components/shared/SectionHeading';
 import AcademicProfileLinks from '@/components/shared/AcademicProfileLinks';
+import { submitFormSpark } from '@/lib/formspark';
+import { trainingProgrammes } from '@/lib/publications-data';
 
-const howOptions = ["Google Search", "Social Media", "Colleague/Friend", "Academic Publication", "Conference", "Other"];
+const CONTACT_FORM_ID = 'r8P1mA59S';
 
-const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
+const serviceOptions = [
+  "GIS & Mapping", "Geophysical Surveys", "Data Analytics", "Consultancy",
+  "Training & Capacity Building", "Conference Management", "Project Management",
+  "Web Design", "Software Development", "Other"
+];
+const currencyOptions = ["NGN (Naira)", "USDT", "BTC", "ETH", "DOGE"];
 
 export default function Contact() {
+  const location = useLocation();
   const formRef = useRef(null);
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
-  const [howFound, setHowFound] = useState('');
+  const [selectedService, setSelectedService] = useState(location.state?.service || '');
+  const [selectedTraining, setSelectedTraining] = useState('');
+  const [wantService, setWantService] = useState(!!location.state?.service);
+  const [wantTraining, setWantTraining] = useState(false);
+  const [expectedDate, setExpectedDate] = useState('');
+  const [expectedStartDate, setExpectedStartDate] = useState('');
+  const [serviceCurrency, setServiceCurrency] = useState('');
+  const [serviceAmount, setServiceAmount] = useState('');
+  const [trainingCurrency, setTrainingCurrency] = useState('');
+  const [trainingAmount, setTrainingAmount] = useState('');
+
+  useEffect(() => {
+    if (location.state?.service) {
+      setSelectedService(location.state.service);
+      setWantService(true);
+    }
+  }, [location.state]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,20 +51,24 @@ export default function Contact() {
     setSending(true);
 
     try {
-      const formData = new FormData(formRef.current);
-      formData.append('access_key', WEB3FORMS_KEY);
-      formData.append('subject', 'New Contact Form Message');
-
-      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
-      const data = await res.json();
-
-      if (data.success) {
-        setSubmitted(true);
-      } else {
-        setError(data.message || 'Failed to send message. Please try again.');
-      }
+      const entries = Object.fromEntries(new FormData(formRef.current));
+      await submitFormSpark(CONTACT_FORM_ID, {
+        name: entries.name || '',
+        email: entries.email || '',
+        phone: entries.phone || '',
+        service: entries.service || '',
+        training: entries.training || '',
+        expected_date: entries.expected_date || '',
+        expected_start_date: entries.expected_start_date || '',
+        service_currency: entries.service_currency || '',
+        service_amount: entries.service_amount || '',
+        training_currency: entries.training_currency || '',
+        training_amount: entries.training_amount || '',
+        message: entries.message || '',
+      });
+      setSubmitted(true);
     } catch {
-      setError('Failed to send message. Please try again or email me directly.');
+      setError('Failed to send. Please try again or email me directly.');
     } finally {
       setSending(false);
     }
@@ -47,10 +77,9 @@ export default function Contact() {
   return (
     <div className="py-20 px-4">
       <div className="max-w-6xl mx-auto">
-        <SectionHeading title="Get in Touch" subtitle="I welcome collaborations, research partnerships, and professional engagements" />
+        <SectionHeading title="Register Interest" subtitle="I welcome collaborations, research partnerships, and professional engagements" />
 
         <div className="grid lg:grid-cols-5 gap-8">
-          {/* Contact Form */}
           <div className="lg:col-span-3 bg-card border border-border rounded-2xl p-6 sm:p-8">
             {submitted ? (
               <div className="flex flex-col items-center py-16 gap-4">
@@ -59,7 +88,7 @@ export default function Contact() {
                 <p className="text-center text-muted-foreground max-w-sm">
                   Thank you for reaching out. I will respond within 24–48 hours.
                 </p>
-                <Button onClick={() => { setSubmitted(false); formRef.current?.reset(); }} variant="outline" className="mt-4">
+                <Button onClick={() => { setSubmitted(false); formRef.current?.reset(); setSelectedService(''); setSelectedTraining(''); setWantService(false); setWantTraining(false); setExpectedDate(''); setExpectedStartDate(''); setServiceCurrency(''); setServiceAmount(''); setTrainingCurrency(''); setTrainingAmount(''); }} variant="outline" className="mt-4">
                   Send Another Message
                 </Button>
               </div>
@@ -75,29 +104,81 @@ export default function Contact() {
                     <Input id="contact-email" name="email" type="email" required placeholder="you@example.com" />
                   </div>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="contact-phone">Phone</Label>
-                    <Input id="contact-phone" name="phone" type="tel" placeholder="+234..." />
-                  </div>
-                  <div>
-                    <Label htmlFor="contact-subject">Subject *</Label>
-                    <Input id="contact-subject" name="subject" required placeholder="Subject of your message" />
-                  </div>
+                <div>
+                  <Label htmlFor="contact-phone">Phone</Label>
+                  <Input id="contact-phone" name="phone" type="tel" placeholder="+234..." />
+                </div>
+                <div className="space-y-3 border border-border rounded-lg p-4">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <Checkbox checked={wantService} onCheckedChange={setWantService} />
+                    <span className="text-sm font-medium">Service Required</span>
+                  </label>
+                  {wantService && (
+                    <div className="space-y-3 pl-6">
+                      <input type="hidden" name="service" value={selectedService} />
+                      <Select value={selectedService} onValueChange={setSelectedService}>
+                        <SelectTrigger><SelectValue placeholder="Select a service" /></SelectTrigger>
+                        <SelectContent>
+                          {serviceOptions.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                        </SelectContent>
+                      </Select>
+                      <div>
+                        <Label htmlFor="expected-date">Expected Date</Label>
+                        <Input id="expected-date" name="expected_date" type="date" value={expectedDate} onChange={e => setExpectedDate(e.target.value)} />
+                      </div>
+                      <div className="space-y-2">
+                        <Label>Amount Offering</Label>
+                        <div className="flex gap-2">
+                          <input type="hidden" name="service_currency" value={serviceCurrency} />
+                          <Select value={serviceCurrency} onValueChange={setServiceCurrency}>
+                            <SelectTrigger className="w-44"><SelectValue placeholder="Currency" /></SelectTrigger>
+                            <SelectContent>
+                              {currencyOptions.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                            </SelectContent>
+                          </Select>
+                          <Input name="service_amount" type="text" placeholder="Amount" value={serviceAmount} onChange={e => setServiceAmount(e.target.value)} className="flex-1" />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className="space-y-3 border border-border rounded-lg p-4">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <Checkbox checked={wantTraining} onCheckedChange={setWantTraining} />
+                    <span className="text-sm font-medium">Training Programme</span>
+                  </label>
+                  {wantTraining && (
+                    <div className="space-y-3 pl-6">
+                      <input type="hidden" name="training" value={selectedTraining} />
+                      <Select value={selectedTraining} onValueChange={setSelectedTraining}>
+                        <SelectTrigger><SelectValue placeholder="Select a training programme" /></SelectTrigger>
+                        <SelectContent>
+                          {trainingProgrammes.map(p => <SelectItem key={p.title} value={p.title}>{p.title}</SelectItem>)}
+                        </SelectContent>
+                      </Select>
+                      <div>
+                        <Label htmlFor="expected-start-date">Expected Start Date</Label>
+                        <Input id="expected-start-date" name="expected_start_date" type="date" value={expectedStartDate} onChange={e => setExpectedStartDate(e.target.value)} />
+                      </div>
+                      <div className="space-y-2">
+                        <Label>Amount Offering</Label>
+                        <div className="flex gap-2">
+                          <input type="hidden" name="training_currency" value={trainingCurrency} />
+                          <Select value={trainingCurrency} onValueChange={setTrainingCurrency}>
+                            <SelectTrigger className="w-44"><SelectValue placeholder="Currency" /></SelectTrigger>
+                            <SelectContent>
+                              {currencyOptions.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                            </SelectContent>
+                          </Select>
+                          <Input name="training_amount" type="text" placeholder="Amount" value={trainingAmount} onChange={e => setTrainingAmount(e.target.value)} className="flex-1" />
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <Label htmlFor="contact-message">Message *</Label>
-                  <Textarea id="contact-message" name="message" required rows={5} placeholder="Write your message here..." />
-                </div>
-                <div>
-                  <Label>How did you find me?</Label>
-                  <Select value={howFound} onValueChange={setHowFound}>
-                    <SelectTrigger><SelectValue placeholder="Select an option (optional)" /></SelectTrigger>
-                    <SelectContent>
-                      {howOptions.map(o => <SelectItem key={o} value={o}>{o}</SelectItem>)}
-                    </SelectContent>
-                  </Select>
-                  <input type="hidden" name="how_found" value={howFound} />
+                  <Textarea id="contact-message" name="message" required rows={5} placeholder="Tell me about your project, research needs, or inquiry..." />
                 </div>
                 {error && <p className="text-sm text-red-500">{error}</p>}
                 <Button type="submit" disabled={sending} className="w-full bg-gold text-navy hover:bg-gold/90 font-semibold">
@@ -107,7 +188,6 @@ export default function Contact() {
             )}
           </div>
 
-          {/* Info Panel */}
           <div className="lg:col-span-2 space-y-6">
             <div className="bg-card border border-border rounded-2xl p-6">
               <h3 className="font-heading text-lg font-semibold mb-5">Contact Information</h3>
@@ -147,7 +227,6 @@ export default function Contact() {
               <AcademicProfileLinks compact />
             </div>
 
-            {/* Map */}
             <div className="bg-card border border-border rounded-2xl overflow-hidden">
               <div className="p-4 flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-gold" />
@@ -155,7 +234,7 @@ export default function Contact() {
               </div>
               <iframe
                 title="University of Abuja Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5!2d7.0!3d8.99!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0ba41c4000f7%3A0x5b4b4b4b4b4b4b4b!2sUniversity%20of%20Abuja!5e0!3m2!1sen!2sng!4v1700000000000"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5!2d7.0!3d8.99!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0ba41c4000f7:0x5b4b4b4b4b4b4b4b!2sUniversity+of+Abuja!5e0!3m2!1sen!2sng!4v1700000000000"
                 width="100%"
                 height="200"
                 style={{ border: 0 }}

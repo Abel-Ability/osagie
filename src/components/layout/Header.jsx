@@ -11,7 +11,6 @@ const navLinks = [
   { label: "Software", path: "/software" },
   { label: "Services", path: "/services" },
   { label: "Training", path: "/training" },
-  { label: "Blog", path: "/blog" },
   { label: "Payment", path: "/payment" },
   { label: "Contact", path: "/contact" }
 ];
@@ -106,7 +105,7 @@ export default function Header({ isDark, toggleTheme, onHireMe }) {
               className="w-full mt-3 flex items-center justify-center gap-2 px-4 py-3 bg-gold text-navy font-semibold text-sm rounded-lg"
             >
               <Sparkles className="w-4 h-4" />
-              Hire Me / Request a Quote
+              Hire Me
             </button>
           </nav>
         </div>

@@ -14,7 +14,6 @@ import Gallery from '@/pages/Gallery';
 import Software from '@/pages/Software';
 import Services from '@/pages/Services';
 import Training from '@/pages/Training';
-import Blog from '@/pages/Blog';
 import Payment from '@/pages/Payment';
 import Contact from '@/pages/Contact';
 
@@ -32,7 +31,6 @@ function App() {
             <Route path="/software" element={<Software />} />
             <Route path="/services" element={<Services />} />
             <Route path="/training" element={<Training />} />
-            <Route path="/blog" element={<Blog />} />
             <Route path="/payment" element={<Payment />} />
             <Route path="/contact" element={<Contact />} />
           </Route>

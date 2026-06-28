@@ -9,7 +9,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import SectionHeading from '@/components/shared/SectionHeading';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { submitForm } from '@/lib/submit-form';
+
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
 
 const modeColors = { "Online": "bg-blue-500/10 text-blue-600 dark:text-blue-400", "In-Person": "bg-green-500/10 text-green-600 dark:text-green-400", "Hybrid": "bg-purple-500/10 text-purple-600 dark:text-purple-400" };
 const levelColors = { "Beginner": "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400", "Intermediate": "bg-amber-500/10 text-amber-600 dark:text-amber-400", "Advanced": "bg-red-500/10 text-red-600 dark:text-red-400" };
@@ -67,7 +68,12 @@ export default function Training() {
     setSending(true);
 
     try {
-      const data = await submitForm(formRef, { formName: 'Training Registration', subject: 'New Training Registration Interest' });
+      const formData = new FormData(formRef.current);
+      formData.append('access_key', WEB3FORMS_KEY);
+      formData.append('subject', 'New Training Registration Interest');
+
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
+      const data = await res.json();
 
       if (data.success) {
         setSubmitted(true);
@@ -109,7 +115,7 @@ export default function Training() {
               </p>
             </div>
           ) : (
-            <form ref={formRef} onSubmit={handleSubmit} data-netlify="true" className="space-y-4">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <Label>Full Name *</Label>
                 <Input name="name" required placeholder="Your name" />

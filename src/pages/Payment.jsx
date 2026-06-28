@@ -85,15 +85,27 @@ export default function Payment() {
     setSending(true);
 
     try {
-      const formData = new FormData(formRef.current);
-      formData.append('access_key', WEB3FORMS_KEY);
-      formData.append('subject', 'New Payment Confirmation Submission');
+      const entries = Object.fromEntries(new FormData(formRef.current));
 
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formData,
-      });
+      const body = [
+        `Name: ${entries.name || ''}`,
+        `Email: ${entries.email || ''}`,
+        `Service: ${entries.service || 'N/A'}`,
+        `Amount: ${entries.amount || 'N/A'}`,
+        `Currency: ${entries.currency || 'N/A'}`,
+        `Reference: ${entries.reference || 'N/A'}`,
+        `Payment Date: ${entries.payment_date || 'N/A'}`,
+        `Message: ${entries.message || ''}`,
+      ].join('\n');
 
+      const payload = new FormData();
+      payload.append('access_key', WEB3FORMS_KEY);
+      payload.append('subject', 'New Payment Confirmation Submission');
+      payload.append('from_name', entries.name || '');
+      payload.append('email', entries.email || '');
+      payload.append('message', body);
+
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: payload });
       const data = await res.json();
 
       if (data.success) {

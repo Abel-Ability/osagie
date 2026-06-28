@@ -68,11 +68,26 @@ export default function Training() {
     setSending(true);
 
     try {
-      const formData = new FormData(formRef.current);
-      formData.append('access_key', WEB3FORMS_KEY);
-      formData.append('subject', 'New Training Registration Interest');
+      const entries = Object.fromEntries(new FormData(formRef.current));
 
-      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
+      const body = [
+        `Name: ${entries.name || ''}`,
+        `Email: ${entries.email || ''}`,
+        `Institution: ${entries.institution || 'N/A'}`,
+        `Programme: ${entries.programme || 'N/A'}`,
+        `Experience Level: ${entries.experience_level || 'N/A'}`,
+        `Preferred Start: ${entries.start_date || 'N/A'}`,
+        `Message: ${entries.message || ''}`,
+      ].join('\n');
+
+      const payload = new FormData();
+      payload.append('access_key', WEB3FORMS_KEY);
+      payload.append('subject', 'New Training Registration Interest');
+      payload.append('from_name', entries.name || '');
+      payload.append('email', entries.email || '');
+      payload.append('message', body);
+
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: payload });
       const data = await res.json();
 
       if (data.success) {

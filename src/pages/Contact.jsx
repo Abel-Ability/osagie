@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Mail, Phone, Globe, MapPin, Send, CheckCircle } from 'lucide-react';
+import { Mail, Phone, Globe, Send, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -227,22 +227,6 @@ export default function Contact() {
               <AcademicProfileLinks compact />
             </div>
 
-            <div className="bg-card border border-border rounded-2xl overflow-hidden">
-              <div className="p-4 flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-gold" />
-                <span className="text-sm font-medium">University of Abuja, FCT, Nigeria</span>
-              </div>
-              <iframe
-                title="University of Abuja Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5!2d7.0!3d8.99!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0ba41c4000f7:0x5b4b4b4b4b4b4b4b!2sUniversity+of+Abuja!5e0!3m2!1sen!2sng!4v1700000000000"
-                width="100%"
-                height="200"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
           </div>
         </div>
       </div>

@@ -434,7 +434,12 @@ export const galleryImages = [
   { id: 30, title: "Sedimentary Thickness Beneath Nigeria", src: "https://drive.google.com/thumbnail?id=1H_BqlOEnX8ZCMSJZ0JNjqb_F2DErGolx&sz=w800", category: "Nigeria", subcategory: "Geology" },
   { id: 31, title: "Curie Depth Point Estimates across Nigeria: Li et al. (2017) vs Gard and Hasterok (2021)", src: "https://drive.google.com/thumbnail?id=1CGAlAuyXJjmXMfozfEr6GwbbFUtSrHPQ&sz=w800", category: "Nigeria", subcategory: "Potential Field" },
   { id: 32, title: "Magnetic Data Analysis across Nigeria", src: "https://drive.google.com/thumbnail?id=1bKug81nHkzCrtQyYSxuBAMi9WkO4eQlK&sz=w800", category: "Nigeria", subcategory: "Potential Field" },
-  { id: 33, title: "Nigeria's Topography and Depth to Bottom of Crust", src: "https://drive.google.com/thumbnail?id=1El-Eu_ztOHBBuTte6OohwHm7FYfhKbiS&sz=w800", category: "Nigeria", subcategory: "Geology" }
+  { id: 33, title: "Nigeria's Topography and Depth to Bottom of Crust", src: "https://drive.google.com/thumbnail?id=1El-Eu_ztOHBBuTte6OohwHm7FYfhKbiS&sz=w800", category: "Nigeria", subcategory: "Geology" },
+  { id: 34, title: "Hotspots Around the Mid-Atlantic Ridge", src: "https://drive.google.com/thumbnail?id=1OIQHrjGyfA52IW0255vVLOc9E0Af3mmh&sz=w800", category: "Global", subcategory: "Tectonics" },
+  { id: 35, title: "Seafloor Spreading from the Mid-Atlantic Ridge", src: "https://drive.google.com/thumbnail?id=1Bu7mtTjEZQXXkrycJq0fFSmWM0pXFy1n&sz=w800", category: "Global", subcategory: "Tectonics" },
+  { id: 36, title: "Age of Oceanic Lithosphere", src: "https://drive.google.com/thumbnail?id=1WjsJi_Che523h6Zr6eqsC8Lm_GPNbKfL&sz=w800", category: "Global", subcategory: "Geology" },
+  { id: 37, title: "Locate the University of Abuja, Nigeria", src: "https://drive.google.com/thumbnail?id=1z2_5FN4ZYxVl7UAvl6EjOvtdlp97cvg4&sz=w800", category: "FCT/Abuja", subcategory: "Other" },
+  { id: 38, title: "Nigeria's States and Local Governments", src: "https://drive.google.com/thumbnail?id=1wbuOdxl9EI69W1g79XnKWS5is5dd2a_p&sz=w800", category: "Nigeria", subcategory: "Other" }
 ];
 
 export const galleryCategories = ["All", "Africa", "Nigeria", "Malaysia", "Libya", "FCT/Abuja", "Global", "Seismology", "Geology", "Drainage", "Other"];

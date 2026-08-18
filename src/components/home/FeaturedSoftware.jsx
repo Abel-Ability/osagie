@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { softwareTools } from '@/lib/publications-data';
-import { ExternalLink, ArrowRight, Code2 } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import SectionHeading from '@/components/shared/SectionHeading';
 
@@ -30,25 +30,15 @@ export default function FeaturedSoftware() {
 function ToolCard({ tool }) {
   const { ref, isVisible } = useScrollReveal();
   return (
-    <div
+    <Link
+      to="/software"
       ref={ref}
-      className={`bg-card border border-border rounded-xl p-6 hover:border-gold/40 hover:shadow-lg transition-all duration-500 ${
+      className={`block bg-card border border-border rounded-xl p-6 hover:border-gold/40 hover:shadow-lg transition-all duration-500 cursor-pointer ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
     >
-      <div className="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center mb-4">
-        <Code2 className="w-6 h-6 text-gold" />
-      </div>
       <h3 className="font-heading font-semibold mb-2">{tool.name}</h3>
-      <p className="text-sm text-muted-foreground mb-4">{tool.description}</p>
-      <a
-        href={tool.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 text-sm text-gold hover:underline"
-      >
-        <ExternalLink className="w-3.5 h-3.5" /> Live Demo
-      </a>
-    </div>
+      <p className="text-sm text-muted-foreground">{tool.description}</p>
+    </Link>
   );
 }

@@ -132,6 +132,18 @@
   background: hsl(var(--muted-foreground) / 0.5);
 }
 
+/* Firefox-safe fallback: if backdrop-filter is unsupported, use opaque background */
+@supports not (backdrop-filter: blur(1px)) {
+  .bg-background\/95 { background-color: hsl(var(--background) / 0.98) !important; }
+  .bg-background\/90 { background-color: hsl(var(--background) / 0.95) !important; }
+}
+
+/* Mobile: prevent horizontal overflow and overscroll */
+html, body {
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* Typewriter animation */
 @keyframes typewriter-blink {
   0%, 100% { border-color: transparent; }
@@ -151,4 +163,55 @@
   opacity: 1;
   transform: translateY(0);
   transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Announcement marquee — continuous right-to-left ticker */
+@keyframes marquee-rtl {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee {
+  --marquee-duration: 40s;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 2.5%, black 97.5%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 2.5%, black 97.5%, transparent);
+}
+.marquee-track {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: max-content;
+  animation: marquee-rtl var(--marquee-duration) linear infinite;
+  will-change: transform;
+}
+.marquee-group {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 1.5rem;
+  padding-right: 1.5rem;
+}
+.marquee-group > * {
+  flex: 0 0 auto;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .marquee-track {
+    width: 100%;
+    flex-wrap: wrap;
+    animation: none;
+  }
+  .marquee-group {
+    flex-wrap: wrap;
+  }
+  .marquee-group[aria-hidden="true"] {
+    display: none;
+  }
 }

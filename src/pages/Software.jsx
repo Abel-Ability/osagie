@@ -1,82 +1,103 @@
-import React from 'react';
-import { useOutletContext } from 'react-router-dom';
+import React, { useState, useRef } from 'react';
 import { softwareTools, tutorialVideos } from '@/lib/publications-data';
-import { ExternalLink, Sparkles, Code2, Play, Monitor } from 'lucide-react';
+import { Play, Monitor, X } from 'lucide-react';
 import SectionHeading from '@/components/shared/SectionHeading';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
-function ToolCard({ tool, onRequestService }) {
+const GAS_URLS = {
+  "Course Participation (UG)": "https://script.google.com/macros/s/AKfycbyhBfexsuADeD9p3l4EH9A2r4GQsG-0u1Zj6cnTb9wYkXl-va4lliGo-SvZKM_YjI3t3w/exec?embed=true",
+  "Course Participation (PG)": "https://script.google.com/macros/s/AKfycbwqdPCES14oSLRDd-XqleLpQ8r-NQQr2JksOYOzuQo0V1mFUcVMxLIeE0C5D0Y6kuCW/exec?embed=true",
+  "Course Participation (GDS)": "https://script.google.com/macros/s/AKfycbzyZE6InQRV6yDKnW1s70qjoNR6RiY3I13oqca1Q9qXqSTqZEgcWxDJ7jdN_rV-SRvt/exec?embed=true",
+  "Assignment Submission (UG)": "https://script.google.com/macros/s/AKfycbyNhquGrT-HyWlcYsLcTIXFcg-5bdXndu9ALotO06fvVx2BTz1oAXzcM4Rs-DFhbW72Qg/exec?embed=true",
+  "Assignment Submission (PG)": "https://script.google.com/macros/s/AKfycbx52mXfYz6SMVqnGqWBeyooC_fuPShLO-BPD4dJsCjKnpQ94bj-x-4P9LWcyuzHwgsflw/exec?embed=true",
+  "FYP Submission System": "https://script.google.com/macros/s/AKfycbz1i45u4lPgEdOOI_hZPMKzYQ63Lqs2Vyx4fP1-9h3_YMEkGJOlQXRrvY3gsxtrDPhP/exec?embed=true",
+  "Pre-Workshop Assessment (Canvas)": "https://script.google.com/macros/s/AKfycbwhacsOtW7nu1M9HZ0sthQfjRlmSvgR6ZwfVrPAUmKuknhixnkSMpHYWocNQWEpExix/exec?embed=true",
+  "Post-Workshop Assessment (Canvas)": "https://script.google.com/macros/s/AKfycbyCU7N9Pqd5NvMDopiQeTBApWzUoV11fxm7N0w83LLXXy1HDMezgDyLkXu9u3Oip5zR/exec?embed=true",
+};
+
+const FEATURED_TOOLS = [
+  "FYP Submission System",
+  "Course Participation (UG)",
+  "Course Participation (PG)",
+  "Course Participation (GDS)",
+  "Assignment Submission (UG)",
+  "Assignment Submission (PG)",
+];
+
+function driveEmbedUrl(url) {
+  const match = url.match(/\/file\/d\/([^/]+)/);
+  return match ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
+}
+
+function FeaturedToolCard({ tool, onSelect }) {
   const { ref, isVisible } = useScrollReveal();
   return (
     <div
       ref={ref}
-      className={`bg-card border border-border rounded-xl p-6 hover:border-gold/40 hover:shadow-lg transition-all duration-500 flex flex-col ${
+      onClick={() => onSelect(tool)}
+      className={`bg-card border border-border rounded-xl p-6 hover:border-gold/40 hover:shadow-lg transition-all duration-500 cursor-pointer ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
     >
-      <div className="w-full h-32 rounded-lg bg-gradient-to-br from-navy/5 to-gold/5 dark:from-navy/20 dark:to-gold/10 flex items-center justify-center mb-5 border border-border/50">
-        <div className="text-center">
-          <Code2 className="w-8 h-8 text-gold mx-auto mb-2" />
-          <span className="text-xs font-mono text-muted-foreground">Google Apps Script</span>
-        </div>
-      </div>
-      <h3 className="font-heading font-semibold text-lg mb-2">{tool.name}</h3>
-      <p className="text-sm text-muted-foreground mb-4 flex-1">{tool.description}</p>
-      <ul className="space-y-1.5 mb-5">
-        {tool.features.map((f, i) => (
-          <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-            <span className="w-1.5 h-1.5 rounded-full bg-gold shrink-0 mt-1.5" />
-            {f}
-          </li>
-        ))}
-      </ul>
-      <div className="flex gap-2 mt-auto">
-        <a
-          href={tool.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex-1 inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-gold/10 text-gold rounded-lg hover:bg-gold/20 transition-colors text-sm font-medium"
-        >
-          <ExternalLink className="w-3.5 h-3.5" /> Live Demo
-        </a>
-        <button
-          onClick={() => onRequestService(tool.name)}
-          className="flex-1 inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-gold text-navy rounded-lg hover:bg-gold/90 transition-colors text-sm font-medium"
-        >
-          <Sparkles className="w-3.5 h-3.5" /> Request Service
-        </button>
-      </div>
+      <h3 className="font-heading font-semibold text-xl mb-2">{tool.name}</h3>
+      <p className="text-sm text-muted-foreground">{tool.description}</p>
     </div>
   );
 }
 
-function VideoCard({ video }) {
+function VideoCard({ video, onSelect }) {
   const { ref, isVisible } = useScrollReveal();
   return (
     <div
       ref={ref}
-      className={`bg-card border border-border rounded-xl p-5 hover:border-gold/40 transition-all duration-500 ${
+      onClick={() => onSelect(video)}
+      className={`bg-card border border-border rounded-xl p-5 hover:border-gold/40 transition-all duration-500 cursor-pointer ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
     >
       <div className="w-full h-24 rounded-lg bg-gradient-to-br from-red-500/10 to-red-500/5 flex items-center justify-center mb-4 border border-border/50">
         <Play className="w-8 h-8 text-red-500" />
       </div>
-      <h4 className="font-semibold text-sm mb-3">{video.title}</h4>
-      <a
-        href={video.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 text-sm text-gold hover:underline"
-      >
-        <Play className="w-3.5 h-3.5" /> Watch Now
-      </a>
+      <h4 className="font-semibold text-sm">{video.title}</h4>
     </div>
   );
 }
 
 export default function Software() {
-  const { openHireMe } = useOutletContext();
+  const [activeTool, setActiveTool] = useState(null);
+  const [activeVideo, setActiveVideo] = useState(null);
+  const toolIframeRef = useRef(null);
+  const videoIframeRef = useRef(null);
+
+  const featuredTools = softwareTools.filter(t => FEATURED_TOOLS.includes(t.name));
+
+  function openToolModal(tool) {
+    setActiveTool(tool);
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeToolModal() {
+    setActiveTool(null);
+    document.body.style.overflow = "";
+    if (toolIframeRef.current) {
+      toolIframeRef.current.src = "about:blank";
+    }
+  }
+
+  function openVideoModal(video) {
+    setActiveVideo(video);
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeVideoModal() {
+    setActiveVideo(null);
+    document.body.style.overflow = "";
+    if (videoIframeRef.current) {
+      videoIframeRef.current.src = "about:blank";
+    }
+  }
+
+  const embedUrl = activeTool ? GAS_URLS[activeTool.name] : "";
 
   return (
     <div className="py-20 px-4">
@@ -87,25 +108,75 @@ export default function Software() {
           <div className="flex items-start gap-3">
             <Monitor className="w-5 h-5 text-gold shrink-0 mt-0.5" />
             <p className="text-sm text-muted-foreground">
-              The following tools were developed using Google Apps Script to support academic administration, student engagement, educational assessment, and capacity-building workflows.
+              The following tools were developed to support academic administration, student engagement, educational assessment, and capacity-building workflows. Click any tool to open it.
             </p>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
-          {softwareTools.map(tool => (
-            <ToolCard key={tool.name} tool={tool} onRequestService={(name) => openHireMe("Software Development")} />
-          ))}
+        {/* Student tools */}
+        <div className="mb-16">
+          <h2 className="font-heading text-2xl font-bold mb-6">Student Tools (University of Abuja)</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredTools.map(tool => (
+              <FeaturedToolCard key={tool.name} tool={tool} onSelect={openToolModal} />
+            ))}
+          </div>
         </div>
 
         {/* Tutorial Videos */}
         <SectionHeading title="Tutorial Videos" subtitle="Step-by-step video guides for educational tools and software" />
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {tutorialVideos.map(video => (
-            <VideoCard key={video.title} video={video} />
+            <VideoCard key={video.title} video={video} onSelect={openVideoModal} />
           ))}
         </div>
       </div>
+
+      {/* Tool Modal */}
+      {activeTool && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4">
+          <div className="absolute inset-0 bg-black/60" onClick={closeToolModal} />
+          <div className="relative bg-card w-full max-w-5xl rounded-2xl shadow-2xl flex flex-col overflow-hidden h-[85vh] max-md:h-[95vh]">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-navy">
+              <h3 className="font-heading font-bold text-base md:text-lg text-gold">
+                {activeTool.name}
+              </h3>
+              <button onClick={closeToolModal} className="p-1 rounded-lg hover:bg-white/10 transition-colors">
+                <X className="w-5 h-5 text-white" />
+              </button>
+            </div>
+            <iframe
+              ref={toolIframeRef}
+              src={embedUrl}
+              className="flex-1 w-full border-0"
+              title={`${activeTool.name} Form`}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Video Modal */}
+      {activeVideo && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4">
+          <div className="absolute inset-0 bg-black/60" onClick={closeVideoModal} />
+          <div className="relative bg-card w-full max-w-5xl rounded-2xl shadow-2xl flex flex-col overflow-hidden h-[85vh] max-md:h-[95vh]">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-navy">
+              <h3 className="font-heading font-bold text-base md:text-lg text-gold">
+                {activeVideo.title}
+              </h3>
+              <button onClick={closeVideoModal} className="p-1 rounded-lg hover:bg-white/10 transition-colors">
+                <X className="w-5 h-5 text-white" />
+              </button>
+            </div>
+            <iframe
+              ref={videoIframeRef}
+              src={driveEmbedUrl(activeVideo.url)}
+              className="flex-1 w-full border-0"
+              title={activeVideo.title}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -464,6 +464,12 @@ export const softwareTools = [
     features: ["Research participation tracking", "Seminar attendance", "Presentation scheduling", "Progress analytics"]
   },
   {
+    name: "Course Participation (GDS)",
+    url: "https://script.google.com/macros/s/AKfycbzyZE6InQRV6yDKnW1s70qjoNR6RiY3I13oqca1Q9qXqSTqZEgcWxDJ7jdN_rV-SRvt/exec",
+    description: "Tracks and manages GDS student participation across course sessions and activities.",
+    features: ["Attendance tracking", "Participation scoring", "Session management", "Analytics dashboard"]
+  },
+  {
     name: "Assignment Submission (UG)",
     url: "https://script.google.com/macros/s/AKfycbyNhquGrT-HyWlcYsLcTIXFcg-5bdXndu9ALotO06fvVx2BTz1oAXzcM4Rs-DFhbW72Qg/exec",
     description: "Digital submission portal for undergraduate assignments with automated receipt and tracking.",

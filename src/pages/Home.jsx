@@ -5,18 +5,18 @@ import FeaturedPublications from '@/components/home/FeaturedPublications';
 import FeaturedGallery from '@/components/home/FeaturedGallery';
 import ServicesOverview from '@/components/home/ServicesOverview';
 import FeaturedSoftware from '@/components/home/FeaturedSoftware';
-import CTABanner from '@/components/home/CTABanner';
+import AnnouncementMarquee from '@/components/AnnouncementMarquee';
 
 export default function Home() {
   return (
     <div>
+      <AnnouncementMarquee />
       <HeroSection />
       <StatsBar />
       <FeaturedPublications />
       <FeaturedGallery />
       <ServicesOverview />
       <FeaturedSoftware />
-      <CTABanner />
     </div>
   );
 }

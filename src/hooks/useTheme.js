@@ -1,22 +1,3 @@
-import { useState, useEffect } from 'react';
-
-export function useTheme() {
-  const [isDark, setIsDark] = useState(() => {
-    const stored = localStorage.getItem('theme');
-    if (stored) return stored === 'dark';
-    return true; // default to dark mode
-  });
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (isDark) {
-      root.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      root.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [isDark]);
-
-  return { isDark, toggle: () => setIsDark(p => !p) };
-}
+// Re-export useTheme from ThemeProvider for backward compatibility.
+// All new code should import directly from '@/lib/ThemeProvider'.
+export { useTheme } from '@/lib/ThemeProvider';

@@ -1,8 +1,9 @@
 import React from 'react';
 import { trainingProgrammes } from '@/lib/publications-data';
-import { Clock } from 'lucide-react';
+import { Clock, Send } from 'lucide-react';
 import SectionHeading from '@/components/shared/SectionHeading';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useServiceRequest } from '@/context/ServiceRequestContext';
 
 function TrainingCard({ programme }) {
   const { ref, isVisible } = useScrollReveal();
@@ -24,6 +25,8 @@ function TrainingCard({ programme }) {
 }
 
 export default function Training() {
+  const { open: openServiceModal } = useServiceRequest();
+
   return (
     <div className="py-20 px-4">
       <div className="max-w-7xl mx-auto">
@@ -32,6 +35,14 @@ export default function Training() {
           {trainingProgrammes.map(p => (
             <TrainingCard key={p.title} programme={p} />
           ))}
+        </div>
+        <div className="mt-10 text-center">
+          <button
+            onClick={openServiceModal}
+            className="inline-flex items-center gap-2 px-8 py-3 bg-gold text-navy font-bold rounded-lg hover:bg-gold/90 transition-all hover:shadow-lg hover:shadow-gold/20"
+          >
+            <Send className="w-4 h-4" /> Register Interest
+          </button>
         </div>
       </div>
     </div>

@@ -48,6 +48,33 @@ export default function Footer() {
               © 2026 Capacity Building and Support (CBS). All rights reserved.
             </p>
           </div>
+          <p className="text-xs text-muted-foreground text-center max-w-2xl">
+            This website and its content are protected by copyright law. Unauthorized copying, reproduction, or distribution of any part of this website is strictly prohibited.
+          </p>
+          <p className="text-xs text-muted-foreground text-center">
+            Dr. Abel U. Osagie |{' '}
+            <a href="/terms" className="hover:text-gold transition-colors">Terms of Service</a>
+          </p>
+          <div className="flex items-center gap-2 mt-2">
+            <a 
+              href="https://www.dmca.com/Protection/Status.aspx?id=YOUR_DMCA_ID" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              title="DMCA.com Protection Status"
+              className="text-xs text-muted-foreground hover:text-gold transition-colors"
+            >
+              DMCA Protected
+            </a>
+            <span className="text-muted-foreground">|</span>
+            <a 
+              href="https://www.dmca.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-xs text-muted-foreground hover:text-gold transition-colors"
+            >
+              DMCA.com
+            </a>
+          </div>
         </div>
       </div>
     </footer>

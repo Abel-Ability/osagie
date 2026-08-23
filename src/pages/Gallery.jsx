@@ -16,13 +16,19 @@ function GalleryCard({ img, onClick }) {
       isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`
       }>
       
-      <div className="aspect-square">
+      <div className="aspect-square relative">
         <img
           src={img.src}
           alt={img.title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          loading="lazy" />
-        
+          loading="lazy"
+          draggable="false" />
+        {/* Watermark overlay */}
+        <div className="absolute inset-0 pointer-events-none opacity-20 flex items-center justify-center">
+          <div className="text-white text-xs font-bold transform rotate-45 whitespace-nowrap select-none">
+            © Dr. Abel U. Osagie
+          </div>
+        </div>
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
         <p className="text-white font-semibold text-sm">{img.title}</p>
@@ -119,10 +125,19 @@ export default function Gallery() {
             <ChevronLeft className="w-6 h-6" />
           </button>
           <div className="max-w-4xl max-h-[85vh] px-4" onClick={(e) => e.stopPropagation()}>
-            <img
-            src={currentImage.src}
-            alt={currentImage.title}
-            className="max-w-full max-h-[75vh] object-contain mx-auto rounded-lg" />
+            <div className="relative">
+              <img
+              src={currentImage.src}
+              alt={currentImage.title}
+              className="max-w-full max-h-[75vh] object-contain mx-auto rounded-lg"
+              draggable="false" />
+              {/* Lightbox watermark */}
+              <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+                <div className="text-white text-lg font-bold transform rotate-45 whitespace-nowrap select-none opacity-30">
+                  © Dr. Abel U. Osagie
+                </div>
+              </div>
+            </div>
           
             <div className="text-center mt-4">
               <h3 className="text-white font-heading text-lg font-semibold">{currentImage.title}</h3>

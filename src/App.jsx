@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 const basename = import.meta.env.BASE_URL || '/'
 import ScrollToTop from './components/ScrollToTop';
 import { ThemeProvider } from '@/lib/ThemeProvider';
+import { useAntiClone } from '@/hooks/useAntiClone';
 
 import SiteLayout from '@/components/layout/SiteLayout';
 import Home from '@/pages/Home';
@@ -17,8 +18,11 @@ import Services from '@/pages/Services';
 import Training from '@/pages/Training';
 import Payment from '@/pages/Payment';
 import Contact from '@/pages/Contact';
+import Terms from '@/pages/Terms';
 
 function App() {
+  useAntiClone();
+
   return (
     <ThemeProvider>
       <QueryClientProvider client={queryClientInstance}>
@@ -35,6 +39,7 @@ function App() {
               <Route path="/training" element={<Training />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/terms" element={<Terms />} />
             </Route>
           </Routes>
         </Router>

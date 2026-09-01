@@ -18,9 +18,9 @@ export default defineConfig({
         obfuscatorPlugin({
           options: {
             compact: true,
-            controlFlowFlattening: true,
+            controlFlowFlattening: false,
             controlFlowFlatteningThreshold: 0.5,
-            deadCodeInjection: true,
+            deadCodeInjection: false,
             deadCodeInjectionThreshold: 0.4,
             debugProtection: false,
             disableConsoleOutput: true,

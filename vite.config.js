@@ -28,7 +28,7 @@ export default defineConfig({
             log: false,
             numbersToExpressions: true,
             renameGlobals: false,
-            selfDefending: true,
+            selfDefending: false,
             simplify: true,
             splitStrings: true,
             splitStringsChunkLength: 10,

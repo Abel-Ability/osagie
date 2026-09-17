@@ -9,15 +9,15 @@ export default function FeaturedSoftware() {
   const featured = softwareTools.slice(0, 3);
 
   return (
-    <section className="py-20 px-4 bg-card/50">
+    <section className="py-16 sm:py-20 px-4 bg-card/50">
       <div className="max-w-7xl mx-auto">
         <SectionHeading title="Software Solutions" subtitle="Custom-built tools for academic administration and education" />
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
           {featured.map(tool => (
             <ToolCard key={tool.name} tool={tool} />
           ))}
         </div>
-        <div className="text-center mt-10">
+        <div className="text-center mt-8 sm:mt-10">
           <Link to="/software" className="inline-flex items-center gap-2 text-gold hover:underline font-medium">
             View All Tools <ArrowRight className="w-4 h-4" />
           </Link>

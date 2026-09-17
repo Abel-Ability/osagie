@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { services } from '@/lib/publications-data';
-import { Map, Activity, BarChart3, Briefcase, GraduationCap, Users, FolderKanban, Globe, ChevronDown, ChevronUp, Send } from 'lucide-react';
+import { Map, Activity, BarChart3, Briefcase, GraduationCap, Users, FolderKanban, Globe, ChevronDown, ChevronUp, Send, X } from 'lucide-react';
 import SectionHeading from '@/components/shared/SectionHeading';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useServiceRequest } from '@/context/ServiceRequestContext';
@@ -92,7 +92,7 @@ export default function Services() {
 
         {/* Professional Services */}
         <SectionHeading title="Professional Services" subtitle="Comprehensive solutions spanning research, technology, training, and consultancy" />
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {services.map(s => (
             <ServiceCard key={s.id} service={s} />
           ))}

@@ -42,12 +42,12 @@ export default function Publications() {
   const paginated = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
 
   return (
-    <div className="py-20 px-4">
+    <div className="py-16 sm:py-20 px-4">
       <div className="max-w-5xl mx-auto">
         <SectionHeading title="Publications" subtitle="Peer-reviewed research across geophysics, GIS, and educational technology" />
 
         {/* Filters */}
-        <div className="bg-card border border-border rounded-xl p-4 sm:p-6 mb-8 space-y-4">
+        <div className="bg-card border border-border rounded-xl p-4 sm:p-6 mb-6 space-y-4">
           <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
             <Filter className="w-4 h-4" />
             <span>{filtered.length} publication{filtered.length !== 1 ? 's' : ''} found</span>

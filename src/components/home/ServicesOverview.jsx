@@ -17,15 +17,15 @@ const topServices = [
 
 export default function ServicesOverview() {
   return (
-    <section className="py-20 px-4">
+    <section className="py-16 sm:py-20 px-4">
       <div className="max-w-7xl mx-auto">
         <SectionHeading title="Services" subtitle="Professional services spanning academia, industry, and technology" />
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {topServices.map(s => (
             <ServiceCard key={s.title} service={s} />
           ))}
         </div>
-        <div className="text-center mt-10">
+        <div className="text-center mt-8 sm:mt-10">
           <Link to="/services" className="inline-flex items-center gap-2 text-gold hover:underline font-medium">
             View All Services <ArrowRight className="w-4 h-4" />
           </Link>

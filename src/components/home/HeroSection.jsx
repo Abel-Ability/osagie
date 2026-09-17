@@ -117,8 +117,8 @@ export default function HeroSection() {
         />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-20">
-        <div className="flex flex-col items-center text-center gap-8">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16 lg:py-20">
+        <div className="flex flex-col items-center text-center gap-6 sm:gap-8">
           {/* Photo */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -127,7 +127,7 @@ export default function HeroSection() {
           >
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-br from-gold/20 to-transparent rounded-full blur-2xl" />
-              <div className="relative w-48 h-48 sm:w-64 sm:h-64 rounded-full overflow-hidden border-4 border-gold/30 shadow-2xl">
+              <div className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-gold/30 shadow-2xl">
                 <img
                   src="https://drive.google.com/thumbnail?id=1kug-_NjMsxNGt4kJJ-pXaTWaukdgDWor&sz=w400"
                   alt="Dr. Abel U. Osagie"
@@ -144,34 +144,45 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="space-y-6 max-w-3xl"
+            className="space-y-5 max-w-3xl"
           >
-            <h1 className="font-heading text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
               Dr. Abel U. OSAGIE
             </h1>
-            <div className="text-xl sm:text-2xl font-medium h-10">
+            <div className="text-lg sm:text-xl md:text-2xl font-medium h-8 sm:h-10">
               <TypewriterText />
             </div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold/10 border border-gold/20 text-sm text-gold">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold/10 border border-gold/20 text-xs sm:text-sm text-gold">
               <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
               University of Abuja, Nigeria
             </div>
             <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
               Welcome to my personal academic and professional website. I am passionate about advancing knowledge through teaching, research, innovation, and professional consultancy. My work spans Geophysics, Geographic Information Systems (GIS), Remote Sensing, Data Analytics, Educational Technology, Scientific Programming, and Digital Solutions Development. This platform provides access to my publications, research projects, maps, software solutions, training opportunities, and professional services. I welcome collaborations, consultancy engagements, research partnerships, and capacity-building opportunities.
             </p>
-            <div className="flex flex-wrap justify-center gap-3 pt-2 w-full max-w-md sm:max-w-none mx-auto">
-              <Link to="/publications" className="inline-flex items-center justify-center gap-2 flex-1 sm:flex-none min-w-[9.5rem] px-5 py-3 sm:py-2.5 bg-gold text-navy font-semibold rounded-lg hover:bg-gold/90 transition-all text-sm">
-                <BookOpen className="w-4 h-4" /> View Publications
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 w-full">
+              <Link to="/publications" className="flex items-center justify-center gap-2 sm:hidden px-3 py-2.5 bg-gold/10 text-gold rounded-lg hover:bg-gold/20 transition-all text-xs sm:text-sm" aria-label="View Publications">
+                <BookOpen className="w-4 h-4" />
+                <span className="hidden sm-inline">View Publications</span>
               </Link>
-              <Link to="/gallery" className="inline-flex items-center justify-center gap-2 flex-1 sm:flex-none min-w-[9.5rem] px-5 py-3 sm:py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-sm">
-                <Image className="w-4 h-4" /> Explore Gallery
+              <Link to="/gallery" className="flex items-center justify-center gap-2 sm:hidden px-3 py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-xs sm:text-sm" aria-label="Explore Gallery">
+                <Image className="w-4 h-4" />
+                <span className="hidden sm-inline">Explore Gallery</span>
               </Link>
-              <Link to="/services" className="inline-flex items-center justify-center gap-2 flex-1 sm:flex-none min-w-[9.5rem] px-5 py-3 sm:py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-sm">
-                <Briefcase className="w-4 h-4" /> View Services
+              <Link to="/services" className="flex items-center justify-center gap-2 sm:hidden px-3 py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-xs sm:text-sm" aria-label="View Services">
+                <Briefcase className="w-4 h-4" />
+                <span className="hidden sm-inline">View Services</span>
               </Link>
-              <Link to="/contact" className="inline-flex items-center justify-center gap-2 flex-1 sm:flex-none min-w-[9.5rem] px-5 py-3 sm:py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-sm">
-                <Mail className="w-4 h-4" /> Contact Me
+              <Link to="/contact" className="flex items-center justify-center gap-2 sm:hidden px-3 py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-xs sm:text-sm" aria-label="Contact Me">
+                <Mail className="w-4 h-4" />
+                <span className="hidden sm-inline">Contact Me</span>
               </Link>
+              {/* Desktop versions with text */}
+              <div className="sm:block sm:flex items-center gap-2">
+                <Link to="/publications" className="px-5 py-3 sm:py-2.5 bg-gold text-navy font-semibold rounded-lg hover:bg-gold/90 transition-all text-sm">View Publications</Link>
+                <Link to="/gallery" className="px-5 py-3 sm:py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-sm">Explore Gallery</Link>
+                <Link to="/services" className="px-5 py-3 sm:py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-sm">View Services</Link>
+                <Link to="/contact" className="px-5 py-3 sm:py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-sm">Contact Me</Link>
+              </div>
             </div>
           </motion.div>
         </div>

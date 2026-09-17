@@ -9,15 +9,15 @@ export default function FeaturedGallery() {
   const featured = galleryImages.slice(0, 4);
 
   return (
-    <section className="py-20 px-4 bg-card/50">
+    <section className="py-16 sm:py-20 px-4 bg-card/50">
       <div className="max-w-7xl mx-auto">
         <SectionHeading title="Featured Maps" subtitle="Curated GIS and cartography outputs from research and consultancy" />
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
           {featured.map(img => (
             <GalleryThumb key={img.id} img={img} />
           ))}
         </div>
-        <div className="text-center mt-10">
+        <div className="text-center mt-8 sm:mt-10">
           <Link to="/gallery" className="inline-flex items-center gap-2 text-gold hover:underline font-medium">
             Explore Full Gallery <ArrowRight className="w-4 h-4" />
           </Link>

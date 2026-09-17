@@ -63,7 +63,7 @@ export default function Gallery() {
   const currentImage = lightboxIdx !== null ? filtered[lightboxIdx] : null;
 
   return (
-    <div className="py-20 px-4">
+    <div className="py-16 sm:py-20 px-4">
       <div className="max-w-7xl mx-auto">
         <SectionHeading title="Map Gallery" subtitle="A curated collection of maps produced using ArcGIS, QGIS, Generic Mapping Tools (GMT) and other spatial analysis platforms" />
 
@@ -71,24 +71,24 @@ export default function Gallery() {
           <p className="text-sm text-muted-foreground mb-4">Welcome to my GIS and Cartography Gallery — a curated collection of maps produced using ArcGIS, QGIS, Generic Mapping Tools (GMT), and other spatial analysis platforms. These maps represent research outputs, teaching resources, and professional GIS consultancy work spanning multiple countries and disciplines.
 
           </p>
-          <div className="flex flex-wrap gap-2">
+<div className="flex flex-wrap gap-2 overflow-x-auto pb-2 -mx-2 px-2 scrollbar-hide">
             {categories.map((cat) =>
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all whitespace-nowrap shrink-0 ${
               activeCategory === cat ?
               'bg-gold text-navy' :
               'bg-muted text-muted-foreground hover:text-foreground hover:bg-muted/80'}`
               }>
-              
+               
                 {cat}
               </button>
             )}
           </div>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
           {filtered.map((img, idx) =>
           <GalleryCard key={img.id} img={img} onClick={() => openLightbox(idx)} />
           )}

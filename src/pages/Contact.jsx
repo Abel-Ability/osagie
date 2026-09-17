@@ -114,7 +114,7 @@ export default function Contact() {
                     <span className="text-sm font-medium">Service Required</span>
                   </label>
                   {wantService && (
-                    <div className="space-y-3 pl-6">
+                    <div className="min-w-0 space-y-3 sm:pl-6">
                       <input type="hidden" name="service" value={selectedService} />
                       <Select value={selectedService} onValueChange={setSelectedService}>
                         <SelectTrigger><SelectValue placeholder="Select a service" /></SelectTrigger>
@@ -128,10 +128,10 @@ export default function Contact() {
                       </div>
                       <div className="space-y-2">
                         <Label>Amount Offering</Label>
-                        <div className="flex gap-2">
+                        <div className="flex flex-col gap-2 sm:flex-row">
                           <input type="hidden" name="service_currency" value={serviceCurrency} />
                           <Select value={serviceCurrency} onValueChange={setServiceCurrency}>
-                            <SelectTrigger className="w-44"><SelectValue placeholder="Currency" /></SelectTrigger>
+                            <SelectTrigger className="w-full sm:w-44 sm:shrink-0"><SelectValue placeholder="Currency" /></SelectTrigger>
                             <SelectContent>
                               {currencyOptions.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
                             </SelectContent>
@@ -148,7 +148,7 @@ export default function Contact() {
                     <span className="text-sm font-medium">Training Programme</span>
                   </label>
                   {wantTraining && (
-                    <div className="space-y-3 pl-6">
+                    <div className="min-w-0 space-y-3 sm:pl-6">
                       <input type="hidden" name="training" value={selectedTraining} />
                       <Select value={selectedTraining} onValueChange={setSelectedTraining}>
                         <SelectTrigger><SelectValue placeholder="Select a training programme" /></SelectTrigger>
@@ -162,10 +162,10 @@ export default function Contact() {
                       </div>
                       <div className="space-y-2">
                         <Label>Amount Offering</Label>
-                        <div className="flex gap-2">
+                        <div className="flex flex-col gap-2 sm:flex-row">
                           <input type="hidden" name="training_currency" value={trainingCurrency} />
                           <Select value={trainingCurrency} onValueChange={setTrainingCurrency}>
-                            <SelectTrigger className="w-44"><SelectValue placeholder="Currency" /></SelectTrigger>
+                            <SelectTrigger className="w-full sm:w-44 sm:shrink-0"><SelectValue placeholder="Currency" /></SelectTrigger>
                             <SelectContent>
                               {currencyOptions.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
                             </SelectContent>

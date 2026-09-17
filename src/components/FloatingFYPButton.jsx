@@ -7,7 +7,7 @@ export default function FloatingFYPButton() {
   const { open } = useServiceRequest();
 
   const buttonClass =
-    "bg-gold text-navy inline-flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2.5 text-xs sm:text-sm font-semibold rounded-full shadow-lg hover:shadow-xl opacity-80 hover:opacity-100 transition-all whitespace-nowrap cursor-pointer";
+    "bg-gold text-navy inline-flex items-center gap-2 sm:px-4 sm:py-2.5 text-sm font-semibold rounded-full shadow-lg hover:shadow-xl opacity-80 hover:opacity-100 transition-all whitespace-nowrap cursor-pointer";
 
   return (
     <div
@@ -15,16 +15,16 @@ export default function FloatingFYPButton() {
       style={{ maxWidth: "calc(100vw - 1.5rem)" }}
     >
       <Link to="/software" className={buttonClass}>
-        <GraduationCap className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-        <span className="truncate">Uniabuja Student Tools</span>
+        <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+        <span className="hidden sm-inline">Uniabuja Student Tools</span>
       </Link>
       <button type="button" onClick={open} className={buttonClass}>
-        <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-        <span className="truncate">Request a Service</span>
+        <Send className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+        <span className="hidden sm-inline">Request a Service</span>
       </button>
       <button type="button" onClick={open} className={buttonClass}>
-        <ClipboardList className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-        <span className="truncate">Register Interest</span>
+        <ClipboardList className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+        <span className="hidden sm-inline">Register Interest</span>
       </button>
     </div>
   );

@@ -13,6 +13,7 @@ export default defineConfig({
     },
   },
   build: {
+    target: ['es2016', 'chrome68', 'edge79', 'firefox60', 'safari11'],
     rollupOptions: {
       plugins: [
         obfuscatorPlugin({

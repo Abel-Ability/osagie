@@ -159,7 +159,7 @@ export default function HeroSection() {
             <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
               Welcome to my personal academic and professional website. I am passionate about advancing knowledge through teaching, research, innovation, and professional consultancy. My work spans Geophysics, Geographic Information Systems (GIS), Remote Sensing, Data Analytics, Educational Technology, Scientific Programming, and Digital Solutions Development. This platform provides access to my publications, research projects, maps, software solutions, training opportunities, and professional services. I welcome collaborations, consultancy engagements, research partnerships, and capacity-building opportunities.
             </p>
-            <div className="flex flex-col items-center justify-center gap-3 pt-2 w-full">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 w-full">
               <Link to="/publications" className="inline-flex items-center justify-center gap-2 px-5 py-3 sm:py-2.5 bg-gold text-navy font-semibold rounded-lg hover:bg-gold/90 transition-all text-sm">
                 <BookOpen className="w-4 h-4" /> View Publications
               </Link>

@@ -7,6 +7,8 @@ const basename = import.meta.env.BASE_URL || '/'
 import ScrollToTop from './components/ScrollToTop';
 import { ThemeProvider } from '@/lib/ThemeProvider';
 import { useAntiClone } from '@/hooks/useAntiClone';
+import { AudioProvider } from './components/audio/AudioProvider';
+import MuteButton from './components/audio/MuteButton';
 
 import SiteLayout from '@/components/layout/SiteLayout';
 import Home from '@/pages/Home';
@@ -42,6 +44,9 @@ function App() {
               <Route path="/terms" element={<Terms />} />
             </Route>
           </Routes>
+          <AudioProvider>
+            <MuteButton />
+          </AudioProvider>
         </Router>
         <Toaster />
       </QueryClientProvider>

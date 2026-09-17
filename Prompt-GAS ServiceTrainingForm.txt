@@ -1,0 +1,106 @@
+# Google Apps Script — Universal Service & Training Request Form
+
+
+Design a GUI with Google App Script (Code.gs and index.html) that serves as a **universal request/registration form** for all services and training programmes offered by Dr. Abel U. Osagie. The same deployment URL will be embedded as an iframe modal across the portfolio website 
+<img src="https://drive.google.com/thumbnail?id=1rovoohmsc10VxMnig2NbrDv5_aaH9ukJ" alt="CBS Logo" class="logo">
+<img src="https://drive.google.com/thumbnail?id=1rovoohmsc10VxMnig2NbrDv5_aaH9ukJ" alt="CBS Logo" class="footer-logo">
+footer paragraph: © 2026 Capacity Building and Support. All rights reserved
+
+The form must:
+1. Present a single unified form with a dropdown to select the service or training of interest.
+2. Show **training-specific fields** (preferred start date, number of participants) only when a training programme is selected.
+3. Save every submission to a Google Sheet.
+4. Send the submitter a **confirmation email** acknowledging their request and a summary of their entry.
+5. Be responsive and work inside a narrow iframe modal (max-width ~600 px).
+
+---
+
+## Form Fields
+
+### Always visible
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| Title | Dropdown | Yes | Options: Prof, Dr, Mr, Mrs, Ms, Other |
+| Surname | Text | Yes | UPPERCASE enforced |
+| First Name | Text | Yes | Title Case enforced |
+| Other Names | Text | No | Title Case enforced |
+| Email | Email | Yes | valid email format, used for confirmation email |
+| Phone | Tel | No | Placeholder: +234... |
+| Service or Training of Interest | Dropdown | Yes | See option lists below |
+| Message / Requirements | Textarea | Yes | Free-text, 4 rows |
+
+### Training-only fields (shown when a training programme is selected)
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| Preferred Start Date | Date picker | No | |
+| Number of Participants | Number (min 1) | No | Default 1 |
+
+
+## Dropdown Options
+
+### Service or Training of Interest
+
+The dropdown should be a single `<select>` with two `<optgroup>` sections:
+
+**optgroup — Services**
+
+1. GIS & Mapping
+2. Geophysical Surveys
+3. Data Analytics
+4. Consultancy
+5. Training & Capacity Building
+6. Conference Management
+7. Project Management
+8. Web Design
+9. Software Development
+10. Other (service)
+
+**optgroup — Training Programmes**
+
+1. Advanced Microsoft Word/Excel
+2. Fortran for Fast Scientific Computing
+3. GIS Fundamentals with ArcGIS/QGIS/Global Mapper
+4. Google Apps Script for Educators
+5. Mastering Generic Mapping Tools (GMT)
+6. Python for Geoscientists
+7. Reference Management with EndNote
+8. Remote Sensing and Image Analysis
+9. Research Methods and Academic Writing
+10. Other (training)
+
+When "Other (service)" or "Other (training)" is selected, reveal an optional text field labelled "Please specify".
+
+---
+
+## Data Storage — Google Sheet
+const RESPONSE_SHEET = '1XVtPducoN5a5G3urICKX7v9GocdG1ApcztJOioDyXdw'; 
+tab name: Enquires;
+
+### Sheet: `Submissions`
+
+Use the sheet ID: 1XVtPducoN5a5G3urICKX7v9GocdG1ApcztJOioDyXdw, and the tab name "Enquires". The script should write each submission as a new row with these columns:
+
+| Column | Source |
+|---|---|
+| Timestamp | `new Date()` at submission |
+| Full names: Title + Surname + First Name + Other Names| Form field |
+| Email | Form field |
+| Phone | Form field |
+| Type | "Service" or "Training" (derived from which optgroup the selection belongs to) |
+| Service or Training | Form field (full text) |
+| Other (specify) | Form field (only if "Other" was chosen) |
+| Preferred Start Date | Form field (training only, blank for services) |
+| Number of Participants | Form field (training only, blank for services) |
+| Message | Form field |
+
+
+## Key Features
+Real-Time Phone and Email Validation.
+Summary Preview before Final Submission.
+Automated Confirmation Email via GmailApp.
+Server-Side Validation before Data Storage.
+Printable Confirmation Page.
+Structured Spreadsheet Header Initialization.
+Subtle Animations and Clean Spacing.

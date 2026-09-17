@@ -1,0 +1,10 @@
+Modal with an iframe:
+
+clicking a video card opens a modal with an iframe. 
+Google Drive videos can be embedded using the /preview endpoint instead of /view. 
+For example:
+https://drive.google.com/file/d/1rzyexHmVS89tR3tnr4bwO_vzqBSDjNlb/view?usp=sharing
+Embed: https://drive.google.com/file/d/1rzyexHmVS89tR3tnr4bwO_vzqBSDjNlb/preview
+
+
+Firefox's responsive design mode (Ctrl+Shift+M) and toggle mobile emulation to verify the white page is gone.

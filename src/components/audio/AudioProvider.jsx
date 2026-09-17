@@ -21,14 +21,16 @@ export function AudioProvider({ children }) {
   const ensureAudio = useCallback(() => {
     if (!audioRef.current) {
       const audio = new Audio();
-      audio.loop = false;
+      audio.loop = true;
       audio.volume = volumeRef.current;
       audio.preload = "auto";
       audio.src = TRACKS[0];
       audio.addEventListener("ended", () => {
         trackIndexRef.current = (trackIndexRef.current + 1) % TRACKS.length;
         audio.src = TRACKS[trackIndexRef.current];
-        audio.play().catch(() => {});
+        audio.play().catch((e) => {
+          console.warn("Audio play failed (may need user interaction):", e);
+        });
       });
       audioRef.current = audio;
     }
@@ -39,9 +41,13 @@ export function AudioProvider({ children }) {
     const audio = ensureAudio();
     trackIndexRef.current = 0;
     audio.src = TRACKS[0];
-    audio.play()
-      .then(() => setPlaying(true))
-      .catch(() => {});
+    if (audio.paused) {
+      audio.play()
+        .then(() => setPlaying(true))
+        .catch((e) => {
+          console.warn("Audio play failed (may need user interaction):", e);
+        });
+    }
   }, [ensureAudio]);
 
   const toggleMuted = useCallback(() => {
@@ -87,3 +93,5 @@ export function useAudio() {
   if (!ctx) throw new Error("useAudio must be used within AudioProvider");
   return ctx;
 }
+
+export { AudioContext };

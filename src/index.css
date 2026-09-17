@@ -154,6 +154,41 @@ html, body {
   animation: typewriter-blink 0.8s infinite;
 }
 
+/* Equalizer — animated music bars */
+@keyframes eq-bar {
+  0%, 100% { height: 4px; }
+  50% { height: 16px; }
+}
+.eq-bar {
+  width: 3px;
+  border-radius: 9999px;
+  background-color: hsl(var(--gold));
+  animation: eq-bar 1s ease-in-out infinite;
+}
+.eq-bar-paused {
+  width: 3px;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: hsl(var(--gold));
+  opacity: 0.6;
+}
+
+/* Galaxy — twinkling stars */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.8); }
+  50% { opacity: 0.9; transform: scale(1.15); }
+}
+@keyframes star-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-6px, 8px, 0); }
+}
+.galaxy-Star {
+  position: absolute;
+  border-radius: 9999px;
+  background-color: hsl(var(--gold));
+  animation: twinkle 3s ease-in-out infinite;
+}
+
 /* Smooth page transitions */
 .page-enter {
   opacity: 0;

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, Image, Briefcase, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
+import BackgroundMusic from '@/components/home/BackgroundMusic';
 
 const titles = [
   "Lecturer",
@@ -47,21 +48,54 @@ function TypewriterText() {
 }
 
 export default function HeroSection() {
+  const stars = useMemo(() => {
+    let seed = 7;
+    const rand = () => {
+      seed = (seed * 16807) % 2147483647;
+      return seed / 2147483647;
+    };
+    return Array.from({ length: 70 }, () => ({
+      left: `${rand() * 100}%`,
+      top: `${rand() * 100}%`,
+      size: 1 + rand() * 2.5,
+      delay: `${rand() * 3}s`,
+      duration: `${2.5 + rand() * 3}s`
+    }));
+  }, []);
+
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-      {/* Animated background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-card">
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: 'radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)',
-          backgroundSize: '40px 40px'
-        }} />
+      <BackgroundMusic />
+      {/* Animated galactic background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-card bg-fixed">
+        <div
+          className="absolute inset-0 opacity-[0.25]"
+          style={{
+            backgroundImage:
+              'radial-gradient(ellipse 80% 50% at 20% 20%, rgba(168,85,247,0.18), transparent 60%), radial-gradient(ellipse 60% 40% at 80% 70%, rgba(59,130,246,0.18), transparent 60%), radial-gradient(ellipse 50% 40% at 70% 20%, rgba(236,72,153,0.15), transparent 60%)'
+          }}
+        />
+        {stars.map((s, i) => (
+          <span
+            key={i}
+            className="galaxy-Star"
+            style={{
+              left: s.left,
+              top: s.top,
+              width: `${s.size}px`,
+              height: `${s.size}px`,
+              animationDelay: s.delay,
+              animationDuration: s.duration
+            }}
+          />
+        ))}
         <motion.div
-          className="absolute top-1/4 -right-32 w-96 h-96 rounded-full bg-gold/5 blur-3xl"
+          className="absolute top-1/4 -right-32 w-96 h-96 rounded-full bg-gold/10 blur-3xl"
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute bottom-1/4 -left-32 w-80 h-80 rounded-full bg-primary/5 blur-3xl"
+          className="absolute bottom-1/4 -left-32 w-80 h-80 rounded-full bg-primary/10 blur-3xl"
           animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.4, 0.2] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />

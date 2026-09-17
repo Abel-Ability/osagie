@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Volume2, VolumeX, SkipBack, SkipForward } from 'lucide-react';
 
 const playlist = [
@@ -7,14 +8,27 @@ const playlist = [
   { src: "/audio/music_pearl_harbor.mp3", title: "Pearl Harbor" }
 ];
 
+const FULL_VOLUME = 0.3;
+const LANDING_VOLUME = FULL_VOLUME * 0.5;
+const STORAGE_KEY = 'osagie:bg-music';
+
+const EQ_BARS = [
+  { bg: "linear-gradient(to top, #f0abfc, #e879f9)", delay: 0 },
+  { bg: "linear-gradient(to top, #93c5fd, #3b82f6)", delay: 0.2 },
+  { bg: "linear-gradient(to top, #fde68a, #f59e0b)", delay: 0.4 }
+];
+
 function Equalizer({ playing }) {
   return (
     <div className="flex items-end gap-[3px] h-5">
-      {[0, 1, 2].map((i) => (
+      {EQ_BARS.map((bar, i) => (
         <span
           key={i}
           className={playing ? "eq-bar" : "eq-bar-paused"}
-          style={playing ? { animationDelay: `${i * 0.2}s` } : undefined}
+          style={{
+            background: bar.bg,
+            animationDelay: playing ? `${bar.delay}s` : undefined
+          }}
         />
       ))}
     </div>
@@ -23,30 +37,153 @@ function Equalizer({ playing }) {
 
 export default function BackgroundMusic() {
   const audioRef = useRef(null);
+  const attemptedRef = useRef(false);
+  const { pathname } = useLocation();
   const [trackIdx, setTrackIdx] = useState(0);
   const [playing, setPlaying] = useState(false);
+  const [silent, setSilent] = useState(false);
+
+  const isHome = pathname === '/';
+  const routeVolume = isHome ? LANDING_VOLUME : FULL_VOLUME;
+
+  const applyVolume = () => {
+    const audio = audioRef.current;
+    if (audio) audio.volume = routeVolume;
+  };
+
+  const saveConsent = () => {
+    try {
+      localStorage.setItem(STORAGE_KEY, 'on');
+    } catch (e) {
+      /* ignore */
+    }
+  };
+
+  const playMuted = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.muted = true;
+    applyVolume();
+    const p = audio.play();
+    if (p && typeof p.then === 'function') {
+      p.then(() => {
+        setPlaying(true);
+        setSilent(true);
+      }).catch(() => {
+        attemptedRef.current = false;
+      });
+    }
+  };
+
+  const tryPlay = (force = false) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (!force && attemptedRef.current) return;
+    attemptedRef.current = true;
+    audio.muted = false;
+    applyVolume();
+    const promise = audio.play();
+    if (promise && typeof promise.then === 'function') {
+      promise.then(() => {
+        setPlaying(true);
+        setSilent(false);
+        saveConsent();
+      }).catch(() => {
+        playMuted();
+      });
+    } else {
+      setPlaying(true);
+      setSilent(false);
+    }
+  };
+
+  const unmute = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.muted = false;
+    applyVolume();
+    const p = audio.play();
+    if (p && typeof p.then === 'function') {
+      p.then(() => {
+        setPlaying(true);
+        setSilent(false);
+        saveConsent();
+      }).catch(() => {});
+    } else {
+      setPlaying(true);
+      setSilent(false);
+    }
+  };
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio && !audio.src) {
+      audio.src = playlist[0].src;
+      audio.load();
+    }
+    const timer = setTimeout(() => tryPlay(), 250);
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') tryPlay(true);
+    };
+    document.addEventListener('visibilitychange', onVisible);
+    window.addEventListener('focus', onVisible);
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener('visibilitychange', onVisible);
+      window.removeEventListener('focus', onVisible);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!silent) return;
+    const onInteract = () => unmute();
+    document.addEventListener('pointerdown', onInteract);
+    document.addEventListener('keydown', onInteract);
+    document.addEventListener('touchstart', onInteract);
+    document.addEventListener('click', onInteract);
+    return () => {
+      document.removeEventListener('pointerdown', onInteract);
+      document.removeEventListener('keydown', onInteract);
+      document.removeEventListener('touchstart', onInteract);
+      document.removeEventListener('click', onInteract);
+    };
+  }, [silent]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio && !audio.muted) {
+      audio.volume = routeVolume;
+    }
+  }, [routeVolume]);
 
   const playTrack = (idx) => {
     const audio = audioRef.current;
     if (!audio) return;
+    audio.pause();
     audio.src = playlist[idx].src;
     audio.load();
-    audio.volume = 0.2;
-    audio.play().catch(() => {});
+    audio.muted = false;
+    applyVolume();
+    audio.play().then(() => {
+      setPlaying(true);
+      setSilent(false);
+      saveConsent();
+    }).catch(() => {});
     setTrackIdx(idx);
-    setPlaying(true);
   };
 
   const toggle = () => {
     const audio = audioRef.current;
     if (!audio) return;
-    if (playing) {
+    if (playing && !silent) {
       audio.pause();
       setPlaying(false);
     } else {
-      audio.volume = 0.2;
-      audio.play().catch(() => {});
-      setPlaying(true);
+      if (!audio.src) {
+        audio.src = playlist[trackIdx].src;
+        audio.load();
+      }
+      unmute();
     }
   };
 
@@ -55,16 +192,19 @@ export default function BackgroundMusic() {
 
   return (
     <>
-      <audio ref={audioRef} onEnded={next} preload="none" />
-      <div className="fixed bottom-6 right-6 z-50 flex items-center gap-1 rounded-full bg-gold/15 text-gold border border-gold/30 shadow-lg backdrop-blur p-1">
+      <audio ref={audioRef} onEnded={next} preload="auto" />
+      <div className="fixed bottom-5 left-4 sm:left-auto sm:right-6 sm:bottom-6 z-50 flex items-center gap-1 rounded-full bg-gold/15 text-gold border border-gold/30 shadow-lg backdrop-blur p-1">
+        {silent && (
+          <span className="sm:hidden text-[10px] pl-2 pr-1 font-semibold animate-pulse">TAP</span>
+        )}
         <span className="px-2"><Equalizer playing={playing} /></span>
         <button
           type="button"
           onClick={toggle}
-          aria-label={playing ? 'Pause background music' : 'Play background music'}
-          title={playing ? 'Pause background music' : 'Play background music'}
-          className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-gold/25 transition-colors cursor-pointer">
-          {playing ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
+          aria-label={playing && !silent ? 'Pause background music' : 'Play background music'}
+          title={playing && !silent ? 'Pause background music' : 'Play background music'}
+          className={`w-9 h-9 rounded-full flex items-center justify-center hover:bg-gold/25 transition-colors cursor-pointer ${silent ? 'animate-pulse' : ''}`}>
+          {playing && !silent ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
         </button>
         <button
           type="button"

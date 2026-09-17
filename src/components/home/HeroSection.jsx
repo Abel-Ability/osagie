@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, Image, Briefcase, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
-import BackgroundMusic from '@/components/home/BackgroundMusic';
+import StarfieldWarp from '@/components/home/StarfieldWarp';
 
 const titles = [
   "Lecturer",
@@ -48,26 +48,44 @@ function TypewriterText() {
 }
 
 export default function HeroSection() {
-  const stars = useMemo(() => {
-    let seed = 7;
+  const shootingStars = useMemo(() => {
+    let seed = 13;
     const rand = () => {
       seed = (seed * 16807) % 2147483647;
       return seed / 2147483647;
     };
-    return Array.from({ length: 70 }, () => ({
-      left: `${rand() * 100}%`,
-      top: `${rand() * 100}%`,
-      size: 1 + rand() * 2.5,
-      delay: `${rand() * 3}s`,
-      duration: `${2.5 + rand() * 3}s`
-    }));
+    const dirs = ["shoot-right", "shoot-bl-tr", "shoot-br-tl", "shoot-up"];
+    return Array.from({ length: 4 }, (_, i) => {
+      const dir = dirs[i % dirs.length];
+      let top;
+      let left;
+      if (dir === "shoot-right") {
+        top = 10 + rand() * 70;
+        left = -8 + rand() * 50;
+      } else if (dir === "shoot-up") {
+        top = 80 + rand() * 20;
+        left = rand() * 100;
+      } else if (dir === "shoot-bl-tr") {
+        top = 70 + rand() * 30;
+        left = rand() * 45;
+      } else {
+        top = 70 + rand() * 30;
+        left = 55 + rand() * 45;
+      }
+      return {
+        dir,
+        top: `${top}%`,
+        left: `${left}%`,
+        delay: `${2 + rand() * 6}s`,
+        duration: `${4.5 + rand() * 4}s`
+      };
+    });
   }, []);
 
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-      <BackgroundMusic />
       {/* Animated galactic background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-card bg-fixed">
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-card sm:bg-fixed">
         <div
           className="absolute inset-0 opacity-[0.25]"
           style={{
@@ -75,17 +93,15 @@ export default function HeroSection() {
               'radial-gradient(ellipse 80% 50% at 20% 20%, rgba(168,85,247,0.18), transparent 60%), radial-gradient(ellipse 60% 40% at 80% 70%, rgba(59,130,246,0.18), transparent 60%), radial-gradient(ellipse 50% 40% at 70% 20%, rgba(236,72,153,0.15), transparent 60%)'
           }}
         />
-        {stars.map((s, i) => (
+        <StarfieldWarp />
+        {shootingStars.map((ss, i) => (
           <span
-            key={i}
-            className="galaxy-Star"
+            key={`shooting-${i}`}
+            className="galaxy-shooting-star"
             style={{
-              left: s.left,
-              top: s.top,
-              width: `${s.size}px`,
-              height: `${s.size}px`,
-              animationDelay: s.delay,
-              animationDuration: s.duration
+              top: ss.top,
+              left: ss.left,
+              animation: `${ss.dir} ${ss.duration} ease-in ${ss.delay} infinite`
             }}
           />
         ))}
@@ -95,7 +111,7 @@ export default function HeroSection() {
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute bottom-1/4 -left-32 w-80 h-80 rounded-full bg-primary/10 blur-3xl"
+          className="hidden sm:block absolute bottom-1/4 -left-32 w-80 h-80 rounded-full bg-primary/10 blur-3xl"
           animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.4, 0.2] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -140,20 +156,20 @@ export default function HeroSection() {
               <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
               University of Abuja, Nigeria
             </div>
-            <p className="text-muted-foreground leading-relaxed text-base">
+            <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
               Welcome to my personal academic and professional website. I am passionate about advancing knowledge through teaching, research, innovation, and professional consultancy. My work spans Geophysics, Geographic Information Systems (GIS), Remote Sensing, Data Analytics, Educational Technology, Scientific Programming, and Digital Solutions Development. This platform provides access to my publications, research projects, maps, software solutions, training opportunities, and professional services. I welcome collaborations, consultancy engagements, research partnerships, and capacity-building opportunities.
             </p>
-            <div className="flex flex-wrap justify-center gap-3 pt-2">
-              <Link to="/publications" className="inline-flex items-center gap-2 px-5 py-2.5 bg-gold text-navy font-semibold rounded-lg hover:bg-gold/90 transition-all text-sm">
+            <div className="flex flex-wrap justify-center gap-3 pt-2 w-full max-w-md sm:max-w-none mx-auto">
+              <Link to="/publications" className="inline-flex items-center justify-center gap-2 flex-1 sm:flex-none min-w-[9.5rem] px-5 py-3 sm:py-2.5 bg-gold text-navy font-semibold rounded-lg hover:bg-gold/90 transition-all text-sm">
                 <BookOpen className="w-4 h-4" /> View Publications
               </Link>
-              <Link to="/gallery" className="inline-flex items-center gap-2 px-5 py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-sm">
+              <Link to="/gallery" className="inline-flex items-center justify-center gap-2 flex-1 sm:flex-none min-w-[9.5rem] px-5 py-3 sm:py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-sm">
                 <Image className="w-4 h-4" /> Explore Gallery
               </Link>
-              <Link to="/services" className="inline-flex items-center gap-2 px-5 py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-sm">
+              <Link to="/services" className="inline-flex items-center justify-center gap-2 flex-1 sm:flex-none min-w-[9.5rem] px-5 py-3 sm:py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-sm">
                 <Briefcase className="w-4 h-4" /> View Services
               </Link>
-              <Link to="/contact" className="inline-flex items-center gap-2 px-5 py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-sm">
+              <Link to="/contact" className="inline-flex items-center justify-center gap-2 flex-1 sm:flex-none min-w-[9.5rem] px-5 py-3 sm:py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-sm">
                 <Mail className="w-4 h-4" /> Contact Me
               </Link>
             </div>

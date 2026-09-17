@@ -154,7 +154,7 @@ html, body {
   animation: typewriter-blink 0.8s infinite;
 }
 
-/* Equalizer — animated music bars */
+/* Equalizer — colorful music bars */
 @keyframes eq-bar {
   0%, 100% { height: 4px; }
   50% { height: 16px; }
@@ -175,8 +175,8 @@ html, body {
 
 /* Galaxy — twinkling stars */
 @keyframes twinkle {
-  0%, 100% { opacity: 0.15; transform: scale(0.8); }
-  50% { opacity: 0.9; transform: scale(1.15); }
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.3); }
 }
 @keyframes star-drift {
   from { transform: translate3d(0, 0, 0); }
@@ -186,7 +186,53 @@ html, body {
   position: absolute;
   border-radius: 9999px;
   background-color: hsl(var(--gold));
+  box-shadow: 0 0 6px hsl(var(--gold) / 0.9), 0 0 14px hsl(var(--gold) / 0.45);
   animation: twinkle 3s ease-in-out infinite;
+}
+
+/* Galaxy — shooting stars (multiple directions) */
+@keyframes shoot-right {
+  0% { transform: translate3d(0, 0, 0) rotate(20deg); opacity: 0; }
+  4% { opacity: 1; }
+  18% { transform: translate3d(45vw, 16vh, 0) rotate(20deg); opacity: 1; }
+  24%, 100% { transform: translate3d(60vw, 22vh, 0) rotate(20deg); opacity: 0; }
+}
+@keyframes shoot-bl-tr {
+  0% { transform: translate3d(0, 0, 0) rotate(-45deg); opacity: 0; }
+  4% { opacity: 1; }
+  18% { transform: translate3d(45vw, -45vh, 0) rotate(-45deg); opacity: 1; }
+  24%, 100% { transform: translate3d(60vw, -60vh, 0) rotate(-45deg); opacity: 0; }
+}
+@keyframes shoot-br-tl {
+  0% { transform: translate3d(0, 0, 0) rotate(-135deg); opacity: 0; }
+  4% { opacity: 1; }
+  18% { transform: translate3d(-45vw, -45vh, 0) rotate(-135deg); opacity: 1; }
+  24%, 100% { transform: translate3d(-60vw, -60vh, 0) rotate(-135deg); opacity: 0; }
+}
+@keyframes shoot-up {
+  0% { transform: translate3d(0, 0, 0) rotate(-90deg); opacity: 0; }
+  4% { opacity: 1; }
+  18% { transform: translate3d(0, -45vh, 0) rotate(-90deg); opacity: 1; }
+  24%, 100% { transform: translate3d(0, -60vh, 0) rotate(-90deg); opacity: 0; }
+}
+.galaxy-shooting-star {
+  position: absolute;
+  width: 150px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), hsl(var(--gold)));
+  border-radius: 9999px;
+}
+.galaxy-shooting-star::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background-color: hsl(var(--gold));
+  box-shadow: 0 0 8px hsl(var(--gold)), 0 0 18px hsl(var(--gold));
 }
 
 /* Smooth page transitions */

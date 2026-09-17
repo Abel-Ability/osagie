@@ -4,6 +4,7 @@ import Header from './Header';
 import Footer from './Footer';
 import FloatingFYPButton from '@/components/FloatingFYPButton';
 import ServiceRequestModal from '@/components/ServiceRequestModal';
+import BackgroundMusic from '@/components/home/BackgroundMusic';
 import { ServiceRequestProvider, useServiceRequest } from '@/context/ServiceRequestContext';
 import { useTheme } from '@/lib/ThemeProvider';
 
@@ -20,6 +21,7 @@ function LayoutInner() {
     <div className="min-h-screen flex flex-col">
       <Header isDark={dark} toggleTheme={toggle} onHireMe={() => openHireMe()} />
       <FloatingFYPButton />
+      <BackgroundMusic />
       <main className="flex-1 pt-16">
         <Outlet context={{ openHireMe }} />
       </main>

@@ -135,19 +135,21 @@ export default function BackgroundMusic() {
   }, []);
 
   useEffect(() => {
-    if (!silent) return;
-    const onInteract = () => unmute();
-    document.addEventListener('pointerdown', onInteract);
-    document.addEventListener('keydown', onInteract);
-    document.addEventListener('touchstart', onInteract);
-    document.addEventListener('click', onInteract);
-    return () => {
-      document.removeEventListener('pointerdown', onInteract);
-      document.removeEventListener('keydown', onInteract);
-      document.removeEventListener('touchstart', onInteract);
-      document.removeEventListener('click', onInteract);
+    const forceStart = () => {
+      const audio = audioRef.current;
+      if (!audio) return;
+      if (audio.paused || audio.muted) tryPlay(true);
     };
-  }, [silent]);
+    const events = ["pointerdown", "keydown", "touchstart", "click", "wheel"];
+    events.forEach((e) => document.addEventListener(e, forceStart));
+    document.addEventListener("scroll", forceStart, { capture: true, passive: true });
+    window.addEventListener("scroll", forceStart, { passive: true });
+    return () => {
+      events.forEach((e) => document.removeEventListener(e, forceStart));
+      document.removeEventListener("scroll", forceStart, { capture: true });
+      window.removeEventListener("scroll", forceStart);
+    };
+  }, [playing, silent]);
 
   useEffect(() => {
     const audio = audioRef.current;

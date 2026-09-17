@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GraduationCap, Award, BookOpen, Users, ChevronDown } from 'lucide-react';
+import { GraduationCap, Award, BookOpen, Users } from 'lucide-react';
 import SectionHeading from '@/components/shared/SectionHeading';
 import AcademicProfileLinks from '@/components/shared/AcademicProfileLinks';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
@@ -17,16 +17,56 @@ const associations = [
 ];
 
 const researchInterests = [
-  { name: "Seismology", description: "Studying earthquakes and seismic wave propagation to better understand earth structure and reduce seismic hazard." },
-  { name: "Seismic Tomography", description: "Imaging the Earth's interior by inverting seismic travel times and waveforms for velocity structure." },
-  { name: "Hydrogeophysics", description: "Applying geophysical methods to characterize aquifers and map subsurface water resources." },
-  { name: "Groundwater Exploration", description: "Locating and assessing groundwater reserves using non-invasive surface geophysical techniques." },
-  { name: "GIS", description: "Integrating spatial data and mapping tools for resource assessment, hazard analysis, and decision support." },
-  { name: "Remote Sensing", description: "Using satellite and aerial imagery to observe land cover, environmental change, and natural resources." },
-  { name: "Environmental Geophysics", description: "Detecting contamination and monitoring subsurface environmental conditions with geophysical surveys." },
-  { name: "Potential Field Methods", description: "Interpreting gravity and magnetic data to map geological structures and mineral deposits." },
-  { name: "Scientific Programming", description: "Developing computational tools and scripts to model physical processes and process geophysical data." },
-  { name: "Educational Technology", description: "Improving STEM teaching and learning through digital platforms, simulations, and e-learning tools." }
+  {
+    name: "Seismology",
+    description:
+      "Studying earthquakes and seismic wave propagation to better understand Earth's internal structure and dynamics. This involves analyzing earthquake records, monitoring fault activity, and estimating seismic hazards to support earthquake-resistant design and disaster preparedness. It also offers insight into how stress accumulates and is released within the crust."
+  },
+  {
+    name: "Seismic Tomography",
+    description:
+      "Imaging the Earth's interior by inverting seismic travel times and waveforms for velocity structure. These models reveal sub-surface features such as subduction zones, mantle plumes, and crustal heterogeneities. The resulting images help constrain geological models and improve the interpretation of tectonic processes over broad regions."
+  },
+  {
+    name: "Hydrogeophysics",
+    description:
+      "Applying geophysical methods to characterize aquifers and map subsurface water resources. Electrical resistivity, electromagnetic, and seismic techniques are integrated to estimate aquifer geometry, porosity, and water quality. This non-invasive approach reduces drilling costs and supports sustainable groundwater management."
+  },
+  {
+    name: "Groundwater Exploration",
+    description:
+      "Locating and assessing groundwater reserves using non-invasive surface geophysical techniques. Combining geological knowledge with geophysical surveys and hydrogeological data helps identify promising borehole sites. This is especially valuable in semi-arid regions where reliable water supply is critical for communities and agriculture."
+  },
+  {
+    name: "GIS",
+    description:
+      "Integrating spatial data and mapping tools for resource assessment, hazard analysis, and decision support. GIS enables layered analysis of geological, environmental, and demographic information to reveal patterns and relationships. It provides a powerful platform for visualizing complex spatial problems and guiding policy and planning decisions."
+  },
+  {
+    name: "Remote Sensing",
+    description:
+      "Using satellite and aerial imagery to observe land cover, environmental change, and natural resources. Multispectral and radar datasets are analyzed to detect deforestation, urbanization, flooding, and mineral alteration zones. This provides broad, repeatable coverage that complements ground-based observations at regional scales."
+  },
+  {
+    name: "Environmental Geophysics",
+    description:
+      "Detecting contamination and monitoring subsurface environmental conditions with geophysical surveys. Geophysical signatures help locate contaminant plumes, assess landfill integrity, and track groundwater quality over time. This supports environmental regulation, remediation planning, and the protection of sensitive ecosystems."
+  },
+  {
+    name: "Potential Field Methods",
+    description:
+      "Interpreting gravity and magnetic data to map geological structures and mineral deposits. Because these methods respond to density and magnetic susceptibility contrasts, they are ideal for regional reconnaissance in basement terrains. They are widely used in mineral and oil exploration as well as in crustal-scale tectonic studies."
+  },
+  {
+    name: "Scientific Programming",
+    description:
+      "Developing computational tools and scripts to model physical processes and process geophysical data. Programming in Python and related languages enables automation, efficient data handling, and reproducible research workflows. It bridges the gap between theoretical geophysics and practical, quantitative analysis."
+  },
+  {
+    name: "Educational Technology",
+    description:
+      "Improving STEM teaching and learning through digital platforms, simulations, and e-learning tools. Interactive visualizations and virtual laboratories make abstract geophysical concepts more accessible and engaging. This work also explores how technology can widen access to quality education regardless of location."
+  }
 ];
 
 function RevealDiv({ children, className = "", delay = 0 }) {
@@ -133,7 +173,7 @@ export default function About() {
         <RevealDiv className="mb-16" delay={250}>
           <div className="bg-card border border-border rounded-2xl p-6 sm:p-10">
             <h3 className="font-heading text-xl font-semibold mb-6">Research Interests</h3>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="flex flex-wrap gap-2 mb-6">
               {researchInterests.map((interest) => {
                 const isOpen = openInterest === interest.name;
                 return (
@@ -142,17 +182,28 @@ export default function About() {
                     key={interest.name}
                     onClick={() => setOpenInterest(isOpen ? null : interest.name)}
                     aria-expanded={isOpen}
-                    className="text-left p-4 rounded-xl border border-border/50 bg-muted/50 transition-colors hover:bg-gold/10 cursor-pointer">
-                    <span className="flex items-center justify-between gap-2">
-                      <span className="font-medium text-gold">{interest.name}</span>
-                      <ChevronDown className={`w-4 h-4 text-muted-foreground shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
-                    </span>
-                    {isOpen && (
-                      <span className="block text-sm text-muted-foreground leading-relaxed mt-2">{interest.description}</span>
-                    )}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${isOpen
+                      ? 'bg-gold text-card border border-gold'
+                      : 'bg-gold/10 text-gold border border-gold/20 hover:bg-gold/20'}`}>
+                    {interest.name}
                   </button>
                 );
               })}
+            </div>
+            <div aria-live="polite">
+              {openInterest
+                ? (() => {
+                    const active = researchInterests.find((i) => i.name === openInterest);
+                    return (
+                      <div className="p-4 rounded-xl border border-border/50 bg-muted/50">
+                        <span className="block font-heading text-sm font-semibold text-gold uppercase tracking-wide mb-2">{active.name}</span>
+                        <span className="block text-sm text-muted-foreground leading-relaxed">{active.description}</span>
+                      </div>
+                    );
+                  })()
+                : (
+                  <p className="text-sm text-muted-foreground">Click on an interest above to view its description.</p>
+                )}
             </div>
           </div>
         </RevealDiv>

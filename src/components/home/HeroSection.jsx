@@ -159,30 +159,19 @@ export default function HeroSection() {
             <p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
               Welcome to my personal academic and professional website. I am passionate about advancing knowledge through teaching, research, innovation, and professional consultancy. My work spans Geophysics, Geographic Information Systems (GIS), Remote Sensing, Data Analytics, Educational Technology, Scientific Programming, and Digital Solutions Development. This platform provides access to my publications, research projects, maps, software solutions, training opportunities, and professional services. I welcome collaborations, consultancy engagements, research partnerships, and capacity-building opportunities.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 w-full">
-              <Link to="/publications" className="flex items-center justify-center gap-2 sm:hidden px-3 py-2.5 bg-gold/10 text-gold rounded-lg hover:bg-gold/20 transition-all text-xs sm:text-sm" aria-label="View Publications">
-                <BookOpen className="w-4 h-4" />
-                <span className="hidden sm-inline">View Publications</span>
+            <div className="flex flex-col items-center justify-center gap-3 pt-2 w-full">
+              <Link to="/publications" className="inline-flex items-center justify-center gap-2 px-5 py-3 sm:py-2.5 bg-gold text-navy font-semibold rounded-lg hover:bg-gold/90 transition-all text-sm">
+                <BookOpen className="w-4 h-4" /> View Publications
               </Link>
-              <Link to="/gallery" className="flex items-center justify-center gap-2 sm:hidden px-3 py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-xs sm:text-sm" aria-label="Explore Gallery">
-                <Image className="w-4 h-4" />
-                <span className="hidden sm-inline">Explore Gallery</span>
+              <Link to="/gallery" className="inline-flex items-center justify-center gap-2 px-5 py-3 sm:py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-sm">
+                <Image className="w-4 h-4" /> Explore Gallery
               </Link>
-              <Link to="/services" className="flex items-center justify-center gap-2 sm:hidden px-3 py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-xs sm:text-sm" aria-label="View Services">
-                <Briefcase className="w-4 h-4" />
-                <span className="hidden sm-inline">View Services</span>
+              <Link to="/services" className="inline-flex items-center justify-center gap-2 px-5 py-3 sm:py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-sm">
+                <Briefcase className="w-4 h-4" /> View Services
               </Link>
-              <Link to="/contact" className="flex items-center justify-center gap-2 sm:hidden px-3 py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-xs sm:text-sm" aria-label="Contact Me">
-                <Mail className="w-4 h-4" />
-                <span className="hidden sm-inline">Contact Me</span>
+              <Link to="/contact" className="inline-flex items-center justify-center gap-2 px-5 py-3 sm:py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-sm">
+                <Mail className="w-4 h-4" /> Contact Me
               </Link>
-              {/* Desktop versions with text */}
-              <div className="sm:block sm:flex items-center gap-2">
-                <Link to="/publications" className="px-5 py-3 sm:py-2.5 bg-gold text-navy font-semibold rounded-lg hover:bg-gold/90 transition-all text-sm">View Publications</Link>
-                <Link to="/gallery" className="px-5 py-3 sm:py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-sm">Explore Gallery</Link>
-                <Link to="/services" className="px-5 py-3 sm:py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-sm">View Services</Link>
-                <Link to="/contact" className="px-5 py-3 sm:py-2.5 border border-border rounded-lg hover:border-gold hover:text-gold transition-all text-sm">Contact Me</Link>
-              </div>
             </div>
           </motion.div>
         </div>

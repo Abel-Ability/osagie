@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useRef, useState, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 
-const TRACKS = ["/audio/music_time.mp3", "/audio/music_ludovico_einaudi.mp3", "/audio/music_pearl_harbor.mp3"];
+const TRACKS = ["/audio/music_ludovico_einaudi.mp3", "/audio/music_pearl_harbor.mp3"];
 
 const LANDING_PAGE_VOLUME = 1;
 const OTHER_PAGE_VOLUME = 0.7;

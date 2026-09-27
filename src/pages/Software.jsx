@@ -25,9 +25,8 @@ const FEATURED_TOOLS = [
 ];
 
 function driveEmbedUrl(url) {
-  return /\/(file|document)\/d\/[^/]+/.test(url)
-    ? `https://docs.google.com/viewer?embedded=true&url=${encodeURIComponent(url)}`
-    : url;
+  const match = url.match(/\/file\/d\/([^/]+)/);
+  return match ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
 }
 
 function FeaturedToolCard({ tool, onSelect }) {

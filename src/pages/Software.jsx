@@ -25,8 +25,9 @@ const FEATURED_TOOLS = [
 ];
 
 function driveEmbedUrl(url) {
-  const match = url.match(/\/file\/d\/([^/]+)/);
-  return match ? `https://drive.google.com/file/d/${match[1]}/preview` : url;
+  return /\/(file|document)\/d\/[^/]+/.test(url)
+    ? `https://docs.google.com/viewer?embedded=true&url=${encodeURIComponent(url)}`
+    : url;
 }
 
 function FeaturedToolCard({ tool, onSelect }) {
@@ -173,6 +174,8 @@ export default function Software() {
               src={driveEmbedUrl(activeVideo.url)}
               className="flex-1 w-full border-0"
               title={activeVideo.title}
+              allow="autoplay; encrypted-media"
+              allowFullScreen={false}
             />
           </div>
         </div>
